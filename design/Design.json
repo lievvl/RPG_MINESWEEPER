@@ -1,0 +1,505 @@
+{
+   "_typeName" : "CanvasLayout",
+   "_version" : "VER3",
+   "adjustment" : 0,
+   "box" : {
+      "_typeName" : "RelativeBox",
+      "height" : {
+         "_typeName" : "RelativeValue",
+         "type" : 0,
+         "value" : 0
+      },
+      "offset" : {
+         "_empty" : true
+      },
+      "width" : {
+         "_typeName" : "RelativeValue",
+         "type" : 0,
+         "value" : 0
+      }
+   },
+   "list" : [
+      {
+         "_name" : "field",
+         "_typeName" : "GameView",
+         "box" : {
+            "_typeName" : "RelativeBox",
+            "height" : {
+               "_typeName" : "RelativeValue",
+               "type" : 0,
+               "value" : 0
+            },
+            "offset" : {
+               "_empty" : true
+            },
+            "width" : {
+               "_typeName" : "RelativeValue",
+               "type" : 0,
+               "value" : 0
+            }
+         },
+         "gameBoxObj" : {
+            "_typeName" : "InfiniteGameBox"
+         },
+         "list" : [
+            {
+               "_name" : "grasses",
+               "_typeName" : "Layer",
+               "index" : {
+                  "_typeName" : "FlatIndex",
+                  "keyType" : 2
+               },
+               "list" : [],
+               "order" : {
+                  "_typeName" : "SortByIDOrder"
+               }
+            },
+            {
+               "_name" : "waters",
+               "_typeName" : "Layer",
+               "index" : {
+                  "_typeName" : "FlatIndex",
+                  "keyType" : 2
+               },
+               "list" : [],
+               "order" : {
+                  "_typeName" : "SortByIDOrder"
+               }
+            },
+            {
+               "_name" : "woods",
+               "_typeName" : "Layer",
+               "index" : {
+                  "_typeName" : "FlatIndex",
+                  "keyType" : 2
+               },
+               "list" : [],
+               "order" : {
+                  "_typeName" : "SortByIDOrder"
+               }
+            },
+            {
+               "_name" : "dogs",
+               "_typeName" : "Layer",
+               "index" : {
+                  "_typeName" : "FlatIndex",
+                  "keyType" : 2
+               },
+               "list" : [],
+               "order" : {
+                  "_typeName" : "SortByIDOrder"
+               }
+            },
+            {
+               "_name" : "heroes",
+               "_typeName" : "Layer",
+               "index" : {
+                  "_typeName" : "FlatIndex",
+                  "keyType" : 2
+               },
+               "list" : [
+                  {
+                     "_name" : "shadow",
+                     "_typeName" : "ObjectConstruct",
+                     "animations" : [
+                        {
+                           "_key" : "ded",
+                           "_value" : {
+                              "_typeName" : "FramesChange",
+                              "atlasName" : "atlas",
+                              "frames" : [
+                                 {
+                                    "_typeName" : "Frame",
+                                    "frameIndex" : 3,
+                                    "lineIndex" : 2,
+                                    "time" : 1
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "_key" : "right",
+                           "_value" : {
+                              "_typeName" : "ParallelAnimation",
+                              "animations" : [
+                                 {
+                                    "_typeName" : "AdvancedMove",
+                                    "changeFunc" : 0,
+                                    "coordType" : 0,
+                                    "objName" : "",
+                                    "parentHeightRelativeCoord" : 0,
+                                    "parentWidthRelativeCoord" : 0,
+                                    "period" : 300,
+                                    "pixelCoord" : 50,
+                                    "relativeMove" : true,
+                                    "selfHeightRelativeCoord" : 0,
+                                    "selfWidthRelativeCoord" : 0
+                                 },
+                                 {
+                                    "_typeName" : "CompositeAnimation",
+                                    "animations" : [
+                                       {
+                                          "_typeName" : "ScaleChange",
+                                          "changeFunc" : 0,
+                                          "objName" : "",
+                                          "period" : 0,
+                                          "relativeScaling" : false,
+                                          "scale" : -1,
+                                          "scalingType" : 1
+                                       },
+                                       {
+                                          "_typeName" : "FramesChange",
+                                          "atlasName" : "atlas",
+                                          "frames" : [
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 6,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 7,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 8,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 7,
+                                                "lineIndex" : 4,
+                                                "time" : 0
+                                             }
+                                          ]
+                                       }
+                                    ]
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "_key" : "down",
+                           "_value" : {
+                              "_typeName" : "ParallelAnimation",
+                              "animations" : [
+                                 {
+                                    "_typeName" : "AdvancedMove",
+                                    "changeFunc" : 0,
+                                    "coordType" : 1,
+                                    "objName" : "",
+                                    "parentHeightRelativeCoord" : 0,
+                                    "parentWidthRelativeCoord" : 0,
+                                    "period" : 300,
+                                    "pixelCoord" : -50,
+                                    "relativeMove" : true,
+                                    "selfHeightRelativeCoord" : 0,
+                                    "selfWidthRelativeCoord" : 0
+                                 },
+                                 {
+                                    "_typeName" : "CompositeAnimation",
+                                    "animations" : [
+                                       {
+                                          "_typeName" : "ScaleChange",
+                                          "changeFunc" : 0,
+                                          "objName" : "",
+                                          "period" : 0,
+                                          "relativeScaling" : false,
+                                          "scale" : 1,
+                                          "scalingType" : 1
+                                       },
+                                       {
+                                          "_typeName" : "FramesChange",
+                                          "atlasName" : "atlas",
+                                          "frames" : [
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 0,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 1,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 2,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 1,
+                                                "lineIndex" : 4,
+                                                "time" : 0
+                                             }
+                                          ]
+                                       }
+                                    ]
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "_key" : "up",
+                           "_value" : {
+                              "_typeName" : "ParallelAnimation",
+                              "animations" : [
+                                 {
+                                    "_typeName" : "AdvancedMove",
+                                    "changeFunc" : 0,
+                                    "coordType" : 1,
+                                    "objName" : "",
+                                    "parentHeightRelativeCoord" : 0,
+                                    "parentWidthRelativeCoord" : 0,
+                                    "period" : 300,
+                                    "pixelCoord" : 50,
+                                    "relativeMove" : true,
+                                    "selfHeightRelativeCoord" : 0,
+                                    "selfWidthRelativeCoord" : 0
+                                 },
+                                 {
+                                    "_typeName" : "CompositeAnimation",
+                                    "animations" : [
+                                       {
+                                          "_typeName" : "ScaleChange",
+                                          "changeFunc" : 0,
+                                          "objName" : "",
+                                          "period" : 0,
+                                          "relativeScaling" : false,
+                                          "scale" : 1,
+                                          "scalingType" : 1
+                                       },
+                                       {
+                                          "_typeName" : "FramesChange",
+                                          "atlasName" : "atlas",
+                                          "frames" : [
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 3,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 4,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 5,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 4,
+                                                "lineIndex" : 4,
+                                                "time" : 0
+                                             }
+                                          ]
+                                       }
+                                    ]
+                                 }
+                              ]
+                           }
+                        },
+                        {
+                           "_key" : "left",
+                           "_value" : {
+                              "_typeName" : "ParallelAnimation",
+                              "animations" : [
+                                 {
+                                    "_typeName" : "AdvancedMove",
+                                    "changeFunc" : 0,
+                                    "coordType" : 0,
+                                    "objName" : "",
+                                    "parentHeightRelativeCoord" : 0,
+                                    "parentWidthRelativeCoord" : 0,
+                                    "period" : 300,
+                                    "pixelCoord" : -50,
+                                    "relativeMove" : true,
+                                    "selfHeightRelativeCoord" : 0,
+                                    "selfWidthRelativeCoord" : 0
+                                 },
+                                 {
+                                    "_typeName" : "CompositeAnimation",
+                                    "animations" : [
+                                       {
+                                          "_typeName" : "ScaleChange",
+                                          "changeFunc" : 0,
+                                          "objName" : "",
+                                          "period" : 0,
+                                          "relativeScaling" : false,
+                                          "scale" : 1,
+                                          "scalingType" : 1
+                                       },
+                                       {
+                                          "_typeName" : "FramesChange",
+                                          "atlasName" : "atlas",
+                                          "frames" : [
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 6,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 7,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 8,
+                                                "lineIndex" : 4,
+                                                "time" : 100
+                                             },
+                                             {
+                                                "_typeName" : "Frame",
+                                                "frameIndex" : 7,
+                                                "lineIndex" : 4,
+                                                "time" : 0
+                                             }
+                                          ]
+                                       }
+                                    ]
+                                 }
+                              ]
+                           }
+                        }
+                     ],
+                     "finder" : {
+                        "_typeName" : "FindableGeometryElement",
+                        "geom" : {
+                           "_typeName" : "IdenticGeometry"
+                        }
+                     },
+                     "id" : 0,
+                     "position" : {
+                        "_typeName" : "PositionElement",
+                        "angle" : 0,
+                        "offset" : [ 0, 0 ],
+                        "scaleX" : 1,
+                        "scaleY" : 1
+                     },
+                     "selector" : {
+                        "_typeName" : "PressableAndClickableElement",
+                        "clickTime" : 500
+                     },
+                     "skin" : {
+                        "_typeName" : "CanvasLayout",
+                        "adjustment" : 0,
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "list" : [
+                           {
+                              "_name" : "atlas",
+                              "_typeName" : "Atlas",
+                              "box" : {
+                                 "_typeName" : "PixelBox",
+                                 "height" : 100,
+                                 "width" : 100
+                              },
+                              "color" : [ 1, 1, 1, 1 ],
+                              "frameIndex" : 1,
+                              "frameSize" : [ 48, 48 ],
+                              "imageName" : "shadow_atlas.png",
+                              "lineIndex" : 4,
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 25
+                                 }
+                              }
+                           }
+                        ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     "transitionAnimations" : []
+                  }
+               ],
+               "order" : {
+                  "_typeName" : "SortByIDOrder"
+               }
+            }
+         ],
+         "position" : {
+            "_typeName" : "AligningOffset",
+            "horAlign" : 1,
+            "horOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            },
+            "vertAlign" : 1,
+            "vertOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            }
+         }
+      }
+   ],
+   "position" : {
+      "_typeName" : "AligningOffset",
+      "horAlign" : 1,
+      "horOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      },
+      "vertAlign" : 1,
+      "vertOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      }
+   }
+}

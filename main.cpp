@@ -37,11 +37,18 @@ class MyApp : public App
 				if (gmap.get(x, y) == Grass)
 				{
 					grasses.load("grass.json", pixels(x, y));
-					if (randomInt(1, 10) == 1)
+					if (randomInt(1, 100) <= 15)
 					{
 						gmap[x][y] = Bomb;
 						auto dog = dogs.load("dog.json", pixels(x, y));
 						//dog.anim.play("hid");
+					}
+
+					if (randomInt(1, 100) <= 10)
+					{
+						gmap[x][y] = Bomb2;
+						auto ghost = ghosts.load("ghost.json", pixels(x, y));
+						//ghost.anim.play("hid");
 					}
 				}
 
@@ -97,7 +104,7 @@ class MyApp : public App
 				for (int y = -1; y < 2; y++)
 				{
 					if (gmap.get(v.x + x, v.y + y) == Bomb)
-						num+=5;
+						num++;
 
 					if (gmap.get(v.x + x, v.y + y) == Bomb2)
 						num+=2;
@@ -189,6 +196,7 @@ class MyApp : public App
     LayerFromDesign(void, grasses);
     LayerFromDesign(void, waters);
 	LayerFromDesign(void, dogs);
+	LayerFromDesign(void, ghosts);
 
     IntVec2 pp;
 };

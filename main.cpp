@@ -192,6 +192,7 @@ class MyApp : public App
     GameMap gmap;
     FromDesign(GameObj, shadow);
     FromDesign(GameView, field);
+    FromDesign(GameObj, blackscreen)
 
     LayerFromDesign(void, grasses);
     LayerFromDesign(void, waters);

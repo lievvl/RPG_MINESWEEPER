@@ -7,6 +7,11 @@ enum Type
 {
     None,
     Grass,
+	Grass1,
+	Grass2,
+	Grass3,
+	Grass4,
+	Grass5,
 	OpenGrass,
     Water,
 	Bomb,
@@ -22,51 +27,166 @@ class MyApp : public App
 {
     void load()
     {
+		connect(NewGame, startgame1);
+		connect(Exit, exit, 0);
+		connect(timerstartgame, startgame2);
+    }
+
+	void startgame1()
+	{
+		blackscreen.anim.play("transit1");
+		timerstartgame.repeat(0.3);
+		timervictory.stop();
+	}
+
+	void startgame2()
+	{
+		timerstartgame.stop();
+		game.select(1);
+		restart();
+	}
+
+	void restart()
+	{
 		randomize();
-        map <Color, int> colorToType;
-        colorToType[Color(0, 255, 0)] = Grass;
-        colorToType[Color(0, 0, 255)] = Water;
-        colorToType[Color(128, 128, 128)] = Hero;
+		map <Color, int> colorToType;
+		colorToType[Color(0, 255, 0)] = Grass;
+		colorToType[Color(0, 200, 0)] = Grass1;
+		colorToType[Color(0, 160, 0)] = Grass2;
+		colorToType[Color(0, 120, 0)] = Grass3;
+		colorToType[Color(0, 80, 0)] = Grass4;
+		colorToType[Color(0, 40, 0)] = Grass5;
+		colorToType[Color(0, 0, 255)] = Water;
+		colorToType[Color(128, 128, 128)] = Hero;
 		colorToType[Color(0, 0, 0)] = Wall;
 
-        gmap = loadMap("map.png", colorToType);
-        for (int x = 0; x < gmap.w; x++)
-        {
-            for (int y = 0; y < gmap.h; y++)
-            {
+		gmap = loadMap("map.png", colorToType);
+		for (int x = 0; x < gmap.w; x++)
+		{
+			for (int y = 0; y < gmap.h; y++)
+			{
 				if (gmap.get(x, y) == Grass)
+				{
+					grasses.load("grass.json", pixels(x, y));
+					gmap[x][y] = Grass;
+				}
+
+
+
+
+
+				if (gmap.get(x, y) == Grass1) //11111111111111111111111111111111111111111111111
+				{
+					grasses.load("grass.json", pixels(x, y));
+					if (randomInt(1, 100) <= 20)
+					{
+						gmap[x][y] = Bomb;
+						auto dog = bombs.load("dog.json", pixels(x, y));
+						dog.anim.play("hid");
+						continue;
+					}
+					gmap[x][y] = Grass;
+				}
+
+
+
+
+
+				if (gmap.get(x, y) == Grass2) //222222222222222222222222222222222222222222222
 				{
 					grasses.load("grass.json", pixels(x, y));
 					if (randomInt(1, 100) <= 15)
 					{
 						gmap[x][y] = Bomb;
-						auto dog = dogs.load("dog.json", pixels(x, y));
-						//dog.anim.play("hid");
+						auto dog = bombs.load("dog.json", pixels(x, y));
+						dog.anim.play("hid");
+						continue;
 					}
 
+					if (randomInt(1, 100) <= 20)
+					{
+						gmap[x][y] = Bomb2;
+						auto ghost = bombs.load("ghost.json", pixels(x, y));
+						ghost.anim.play("hid");
+						continue;
+					}
+					gmap[x][y] = Grass;
+				}
+
+
+
+
+
+				if (gmap.get(x, y) == Grass3) //3333333333333333333333333333333333333333333333
+				{
+					grasses.load("grass.json", pixels(x, y));
+					if (randomInt(1, 100) <= 10)
+					{
+						gmap[x][y] = Bomb;
+						auto dog = bombs.load("dog.json", pixels(x, y));
+						dog.anim.play("hid");
+						continue;
+					}
+
+					if (randomInt(1, 100) <= 15)
+					{
+						gmap[x][y] = Bomb2;
+						auto ghost = bombs.load("ghost.json", pixels(x, y));
+						ghost.anim.play("hid");
+						continue;
+					}
+					gmap[x][y] = Grass;
+				}
+
+
+
+
+
+				if (gmap.get(x, y) == Grass4) //444444444444444444444444444444444444444444444444444
+				{
+					grasses.load("grass.json", pixels(x, y));
 					if (randomInt(1, 100) <= 10)
 					{
 						gmap[x][y] = Bomb2;
-						auto ghost = ghosts.load("ghost.json", pixels(x, y));
-						//ghost.anim.play("hid");
+						auto ghost = bombs.load("ghost.json", pixels(x, y));
+						ghost.anim.play("hid");
+						continue;
 					}
+					gmap[x][y] = Grass;
 				}
 
-                if (gmap.get(x, y) == Water)
-                    waters.load("Water.json", pixels(x, y));
 
-                if (gmap.get(x, y) == Hero)
-                {
-                    shadow.setPos(pixels(x, y));
-                    pp.x = x;
-                    pp.y = y;
+
+
+
+				if (gmap.get(x, y) == Grass5) //5555555555555555555555555555555555555555555555555
+				{
+					gmap[x][y] = Grass;
+				}
+
+
+
+
+
+				//ÒÅÊÑÒÓÐÊÈ
+
+				if (gmap.get(x, y) == Water)
+					waters.load("Water.json", pixels(x, y));
+
+				if (gmap.get(x, y) == Hero)
+				{
+					shadow.setPos(pixels(x, y));
+					pp.x = x;
+					pp.y = y;
 					gmap[x][y] = Grass;
 					grasses.load("grass.json", pixels(x, y));
 
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+
+		flagstartgame = 3;
+	}
 
     Vec2 pixels(int x, int y)
     {
@@ -78,8 +198,55 @@ class MyApp : public App
 
 	// deque
 
+	void victory(IntVec2 v, int bomblvl)
+	{
+
+		Color mas[8] = {
+			Color(0,0,255), Color(0,255,0), Color(255,0,0), Color(148,0,211),
+			Color(86,3,25), Color(17,96,98), Color(0,0,0), Color(128,128,128),
+		};
+		int num = 0;
+		timervictory.stop();
+		shadow.anim.resume();
+
+		exp += bomblvl * 20;
+		auto bomb = bombs.find(pixels(v.x, v.y)).back();
+		bomb.skin<Texture>().setColor(0, 0, 0);
+		auto obj = grasses.find(pixels(v.x, v.y)).back();
+		obj.anim.play("hid");
+
+		gmap[v] = OpenGrass;
+
+
+	}
+
+	void defeat()
+	{
+
+	}
+
 	void volni(IntVec2 v)
 	{
+		if (gmap[v] >= Bomb && gmap[v] <= Bomb5)
+		{
+			int bomblvl = gmap[v] - Bomb + 1;
+			if (lvl >= bomblvl)
+			{
+				shadow.anim.pause();
+				auto bomb = bombs.find(pixels(v.x, v.y)).back();
+				bomb.anim.play("show", 2);
+
+				connect(timervictory, victory, v, bomblvl);
+				timervictory.repeat(1);
+				return;
+			}
+			else
+			{
+				hp -= bomblvl * 10;
+
+			}
+		}
+
 		deque<IntVec2> queue;
 		queue.push_back(v);
 
@@ -151,55 +318,96 @@ class MyApp : public App
     void process(Input input)
     {
         using namespace gamebase::InputKey;
-		if (gmap[pp.x + 1][pp.y] == Grass || gmap[pp.x + 1][pp.y] == OpenGrass)
-        if (input.pressed(Right) && shadow.anim.isEmpty(0))
-        {
-            shadow.anim.run("right");
-			pp.x++;
-			volni(pp);
-        }
+		if (game.selected() == 1 && timervictory.isPaused())
+		{
+			if (gmap[pp.x + 1][pp.y] == Grass || gmap[pp.x + 1][pp.y] == OpenGrass || (gmap[pp.x + 1][pp.y] >= Bomb && gmap[pp.x + 1][pp.y] <= Bomb5))
+				if (input.pressed(Right) && shadow.anim.isEmpty(0))
+				{
+					shadow.anim.run("right");
+					pp.x++;
+					volni(pp);
+				}
 
-		if (gmap[pp.x - 1][pp.y] == Grass || gmap[pp.x - 1][pp.y] == OpenGrass)
-        if (input.pressed(Left) && shadow.anim.isEmpty(0))
-        {
-            shadow.anim.run("left");
-            pp.x--;
-			volni(pp);
-        }
+			if (gmap[pp.x - 1][pp.y] == Grass || gmap[pp.x - 1][pp.y] == OpenGrass || (gmap[pp.x - 1][pp.y] >= Bomb && gmap[pp.x - 1][pp.y] <= Bomb5))
+				if (input.pressed(Left) && shadow.anim.isEmpty(0))
+				{
+					shadow.anim.run("left");
+					pp.x--;
+					volni(pp);
+				}
 
-		if (gmap[pp.x][pp.y + 1] == Grass || gmap[pp.x][pp.y + 1] == OpenGrass)
-        if (input.pressed(Up) && shadow.anim.isEmpty(0))
-        {
-            shadow.anim.run("up");
-            pp.y++;
-			volni(pp);
-        }
+			if (gmap[pp.x][pp.y + 1] == Grass || gmap[pp.x][pp.y + 1] == OpenGrass || (gmap[pp.x][pp.y + 1] >= Bomb && gmap[pp.x][pp.y + 1] <= Bomb5))
+				if (input.pressed(Up) && shadow.anim.isEmpty(0))
+				{
+					shadow.anim.run("up");
+					pp.y++;
+					volni(pp);
+				}
 
-		if (gmap[pp.x][pp.y - 1] == Grass || gmap[pp.x][pp.y - 1] == OpenGrass)
-        if (input.pressed(Down) && shadow.anim.isEmpty(0))
-        {
-            shadow.anim.run("down");
-            pp.y--;
-			volni(pp);
-        }
+			if (gmap[pp.x][pp.y - 1] == Grass || gmap[pp.x][pp.y - 1] == OpenGrass || (gmap[pp.x][pp.y - 1] >= Bomb && gmap[pp.x][pp.y - 1] <= Bomb5))
+				if (input.pressed(Down) && shadow.anim.isEmpty(0))
+				{
+					shadow.anim.run("down");
+					pp.y--;
+					volni(pp);
+				}
+		}
     }
 
     void move()
     {
-        field.setView(shadow.pos());
+		if (game.selected() == 1)
+		{
+			field.setView(shadow.pos());
+
+			if (flagstartgame == 1)
+			{
+				blackscreen.anim.play("transit2", 3);
+				
+			}
+
+			if (flagstartgame >= 0)
+			flagstartgame--;
+
+			if (exp == 100 && lvl == 1)
+				lvl++;
+
+			if (exp == 500 && lvl == 2)
+				lvl++;
+
+
+		}
+
+
     }
 
     GameMap gmap;
     FromDesign(GameObj, shadow);
     FromDesign(GameView, field);
-    FromDesign(GameObj, blackscreen)
+	FromDesign(GameObj, blackscreen);
+	FromDesign(Selector, game);
+	FromDesign(Button, NewGame);
+	FromDesign(Button, LoadGame);
+	FromDesign(Button, Rules);
+	FromDesign(Button, Exit);
 
     LayerFromDesign(void, grasses);
     LayerFromDesign(void, waters);
-	LayerFromDesign(void, dogs);
-	LayerFromDesign(void, ghosts);
+	LayerFromDesign(void, bombs);
 
     IntVec2 pp;
+	Timer timerstartgame;
+	Timer timervictory;
+	int flagstartgame = 0;
+	int bombnum = 0;
+
+	int prof = 0;
+	int lvl = 1;
+	int exp = 0;
+	int hp = 100;
+	int str = 0;
+	int agil = 0;
+	int intel = 0;
 };
 
 int main(int argc, char** argv)

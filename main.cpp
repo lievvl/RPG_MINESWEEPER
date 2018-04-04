@@ -28,7 +28,7 @@ class MyApp : public App
     void load()
     {
 		connect(NewGame, startgame1);
-		connect(Exit, exit, 0);
+		connect(Exit, return, 0);
 		connect(timerstartgame, startgame2);
     }
 
@@ -117,57 +117,6 @@ class MyApp : public App
 
 
 
-				if (gmap.get(x, y) == Grass3) //3333333333333333333333333333333333333333333333
-				{
-					grasses.load("grass.json", pixels(x, y));
-					if (randomInt(1, 100) <= 10)
-					{
-						gmap[x][y] = Bomb;
-						auto dog = bombs.load("dog.json", pixels(x, y));
-						dog.anim.play("hid");
-						continue;
-					}
-
-					if (randomInt(1, 100) <= 15)
-					{
-						gmap[x][y] = Bomb2;
-						auto ghost = bombs.load("ghost.json", pixels(x, y));
-						ghost.anim.play("hid");
-						continue;
-					}
-					gmap[x][y] = Grass;
-				}
-
-
-
-
-
-				if (gmap.get(x, y) == Grass4) //444444444444444444444444444444444444444444444444444
-				{
-					grasses.load("grass.json", pixels(x, y));
-					if (randomInt(1, 100) <= 10)
-					{
-						gmap[x][y] = Bomb2;
-						auto ghost = bombs.load("ghost.json", pixels(x, y));
-						ghost.anim.play("hid");
-						continue;
-					}
-					gmap[x][y] = Grass;
-				}
-
-
-
-
-
-				if (gmap.get(x, y) == Grass5) //5555555555555555555555555555555555555555555555555
-				{
-					gmap[x][y] = Grass;
-				}
-
-
-
-
-
 				//ÒÅÊÑÒÓÐÊÈ
 
 				if (gmap.get(x, y) == Water)
@@ -208,12 +157,52 @@ class MyApp : public App
 		int num = 0;
 		timervictory.stop();
 		shadow.anim.resume();
+		gmap[v] = Grass;
+
+		for (int x = -1; x < 2; x++)
+		{
+			for (int y = -1; y < 2; y++)
+			{
+				if (gmap.get(v.x + x, v.y + y) == OpenGrass)
+				{
+					auto obj = grasses.find(pixels(v.x + x, v.y + y)).back();
+					auto l = obj.child<Label>("label");
+					if (stoi(l.text(), 0, 10) - bomblvl == 0)
+						l.hide();
+					else
+						l << stoi(l.text(), 0, 10) - bomblvl;
+				}
+
+				if (gmap.get(v.x + x, v.y + y) == Bomb)
+					num++;
+
+				if (gmap.get(v.x + x, v.y + y) == Bomb2)
+					num += 2;
+
+				if (gmap.get(v.x + x, v.y + y) == Bomb3)
+					num += 3;
+
+				if (gmap.get(v.x + x, v.y + y) == Bomb4)
+					num += 4;
+
+				if (gmap.get(v.x + x, v.y + y) == Bomb5)
+					num += 5;
+			}
+		}
 
 		exp += bomblvl * 20;
 		auto bomb = bombs.find(pixels(v.x, v.y)).back();
-		bomb.skin<Texture>().setColor(0, 0, 0);
+		bomb.kill();
 		auto obj = grasses.find(pixels(v.x, v.y)).back();
 		obj.anim.play("hid");
+		auto l = obj.child<Label>("label");
+		if (num != 0)
+		{
+			if (num == 40)
+				num--;
+			l.setColor(mas[num / 5]);
+			l << num;
+		};
 
 		gmap[v] = OpenGrass;
 
@@ -225,7 +214,7 @@ class MyApp : public App
 
 	}
 
-	void volni(IntVec2 v)
+	void volni(IntVec2 v, int direct)
 	{
 		if (gmap[v] >= Bomb && gmap[v] <= Bomb5)
 		{
@@ -325,7 +314,7 @@ class MyApp : public App
 				{
 					shadow.anim.run("right");
 					pp.x++;
-					volni(pp);
+					volni(pp, 1);
 				}
 
 			if (gmap[pp.x - 1][pp.y] == Grass || gmap[pp.x - 1][pp.y] == OpenGrass || (gmap[pp.x - 1][pp.y] >= Bomb && gmap[pp.x - 1][pp.y] <= Bomb5))
@@ -333,7 +322,7 @@ class MyApp : public App
 				{
 					shadow.anim.run("left");
 					pp.x--;
-					volni(pp);
+					volni(pp, 2);
 				}
 
 			if (gmap[pp.x][pp.y + 1] == Grass || gmap[pp.x][pp.y + 1] == OpenGrass || (gmap[pp.x][pp.y + 1] >= Bomb && gmap[pp.x][pp.y + 1] <= Bomb5))
@@ -341,7 +330,7 @@ class MyApp : public App
 				{
 					shadow.anim.run("up");
 					pp.y++;
-					volni(pp);
+					volni(pp, 3);
 				}
 
 			if (gmap[pp.x][pp.y - 1] == Grass || gmap[pp.x][pp.y - 1] == OpenGrass || (gmap[pp.x][pp.y - 1] >= Bomb && gmap[pp.x][pp.y - 1] <= Bomb5))
@@ -349,7 +338,7 @@ class MyApp : public App
 				{
 					shadow.anim.run("down");
 					pp.y--;
-					volni(pp);
+					volni(pp, 4);
 				}
 		}
     }

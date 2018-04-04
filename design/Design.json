@@ -355,9 +355,6 @@
                               "value" : 0
                            }
                         },
-                        "gameBoxObj" : {
-                           "_typeName" : "InfiniteGameBox"
-                        },
                         "list" : [
                            {
                               "_name" : "grasses",
@@ -984,6 +981,7 @@
                                                 "text" : "Проффесия: "
                                              },
                                              {
+                                                "_name" : "profl",
                                                 "_typeName" : "StaticLabel",
                                                 "adjustSize" : true,
                                                 "box" : {
@@ -1275,7 +1273,7 @@
                                                 "text" : "Уровень: "
                                              },
                                              {
-                                                "_name" : "levell",
+                                                "_name" : "lvll",
                                                 "_typeName" : "StaticLabel",
                                                 "adjustSize" : true,
                                                 "box" : {
@@ -1421,7 +1419,7 @@
                                                 "text" : "Опыт: "
                                              },
                                              {
-                                                "_name" : "experiencel",
+                                                "_name" : "expl",
                                                 "_typeName" : "StaticLabel",
                                                 "adjustSize" : true,
                                                 "box" : {
@@ -1567,7 +1565,7 @@
                                                 "text" : "До след. уровня: "
                                              },
                                              {
-                                                "_name" : "nextexperiencel",
+                                                "_name" : "nextexpl",
                                                 "_typeName" : "StaticLabel",
                                                 "adjustSize" : true,
                                                 "box" : {

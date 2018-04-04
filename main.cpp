@@ -29,14 +29,17 @@ class MyApp : public App
     {
 		connect(NewGame, startgame1);
 		connect(Exit, return, 0);
+
+
 		connect(timerstartgame, startgame2);
+		connect(timertostats, tostats2);
+		connect(timerfromstatstogame, fromstatstogame2);
     }
 
 	void startgame1()
 	{
 		blackscreen.anim.play("transit1");
 		timerstartgame.repeat(0.3);
-		timervictory.stop();
 	}
 
 	void startgame2()
@@ -46,8 +49,44 @@ class MyApp : public App
 		restart();
 	}
 
+	void tostats1()
+	{
+		blackscreen.anim.play("transit1");
+		timertostats.repeat(0.3);
+	}
+
+	void tostats2()
+	{
+		timertostats.stop();
+		hpl << hp;
+		lvll << lvl;
+		expl << exp;
+		game.select(2);
+		blackscreen.anim.play("transit2");
+	}
+
+	void fromstatstogame1()
+	{
+		blackscreen.anim.play("transit1");
+		timerfromstatstogame.repeat(0.3);
+	}
+
+	void fromstatstogame2()
+	{
+		timerfromstatstogame.stop();
+		game.select(1);
+		blackscreen.anim.play("transit2");
+	}
+
 	void restart()
 	{
+		timerfromstatstogame.stop();
+		timertostats.stop();
+		timerstartgame.stop();
+		timervictory.stop();
+
+
+
 		randomize();
 		map <Color, int> colorToType;
 		colorToType[Color(0, 255, 0)] = Grass;
@@ -134,7 +173,7 @@ class MyApp : public App
 			}
 		}
 
-		flagstartgame = 3;
+		flagstartgame = 5;
 	}
 
     Vec2 pixels(int x, int y)
@@ -170,7 +209,10 @@ class MyApp : public App
 					if (stoi(l.text(), 0, 10) - bomblvl == 0)
 						l.hide();
 					else
+					{
+						l.setColor(mas[(stoi(l.text(), 0, 10) - bomblvl) / 5]);
 						l << stoi(l.text(), 0, 10) - bomblvl;
+					}
 				}
 
 				if (gmap.get(v.x + x, v.y + y) == Bomb)
@@ -307,7 +349,7 @@ class MyApp : public App
     void process(Input input)
     {
         using namespace gamebase::InputKey;
-		if (game.selected() == 1 && timervictory.isPaused())
+		if (game.selected() == 1 && timervictory.isPaused() && timerfromstatstogame.isPaused())
 		{
 			if (gmap[pp.x + 1][pp.y] == Grass || gmap[pp.x + 1][pp.y] == OpenGrass || (gmap[pp.x + 1][pp.y] >= Bomb && gmap[pp.x + 1][pp.y] <= Bomb5))
 				if (input.pressed(Right) && shadow.anim.isEmpty(0))
@@ -341,6 +383,21 @@ class MyApp : public App
 					volni(pp, 4);
 				}
 		}
+
+
+
+		if (input.pressed(Tab))
+		{
+			if (game.selected() == 1)
+			{
+				tostats1();
+			}
+
+			if (game.selected() == 2)
+			{
+				fromstatstogame1();
+			}
+		}
     }
 
     void move()
@@ -348,22 +405,26 @@ class MyApp : public App
 		if (game.selected() == 1)
 		{
 			field.setView(shadow.pos());
+		}
 
-			if (flagstartgame == 1)
-			{
-				blackscreen.anim.play("transit2", 3);
-				
-			}
 
-			if (flagstartgame >= 0)
+
+
+		if (exp == 100 && lvl == 1)
+			lvl++;
+
+		if (exp == 500 && lvl == 2)
+			lvl++;
+
+
+
+		if (flagstartgame >= 0)
 			flagstartgame--;
 
-			if (exp == 100 && lvl == 1)
-				lvl++;
 
-			if (exp == 500 && lvl == 2)
-				lvl++;
-
+		if (flagstartgame == 1)
+		{
+			blackscreen.anim.play("transit2", 3);
 
 		}
 
@@ -380,12 +441,20 @@ class MyApp : public App
 	FromDesign(Button, Rules);
 	FromDesign(Button, Exit);
 
+	FromDesign(Label, profl);
+	FromDesign(Label, hpl);
+	FromDesign(Label, lvll);
+	FromDesign(Label, expl);
+	FromDesign(Label, nextexpl);
+
     LayerFromDesign(void, grasses);
     LayerFromDesign(void, waters);
 	LayerFromDesign(void, bombs);
 
     IntVec2 pp;
+	Timer timertostats;
 	Timer timerstartgame;
+	Timer timerfromstatstogame;
 	Timer timervictory;
 	int flagstartgame = 0;
 	int bombnum = 0;
@@ -393,10 +462,15 @@ class MyApp : public App
 	int prof = 0;
 	int lvl = 1;
 	int exp = 0;
+	int nextexp = 0;
 	int hp = 100;
-	int str = 0;
-	int agil = 0;
-	int intel = 0;
+
+
+
+	int lvlmas[5] = {
+		200, 1000, 2000, 3500, 5000
+	};
+
 };
 
 int main(int argc, char** argv)

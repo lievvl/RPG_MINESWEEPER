@@ -61,6 +61,7 @@ class MyApp : public App
 		hpl << hp;
 		lvll << lvl;
 		expl << exp;
+		nextexpl << nextexp;
 		game.select(2);
 		blackscreen.anim.play("transit2");
 	}
@@ -251,19 +252,19 @@ class MyApp : public App
 
 	}
 
-	void defeat()
+	void defeat(IntVec2 v, int bomblvl)
 	{
 
 	}
 
-	void volni(IntVec2 v, int direct)
+	void volni(IntVec2 v, string direct)
 	{
 		if (gmap[v] >= Bomb && gmap[v] <= Bomb5)
 		{
 			int bomblvl = gmap[v] - Bomb + 1;
 			if (lvl >= bomblvl)
 			{
-				shadow.anim.pause();
+				shadow.anim.pause(0);
 				auto bomb = bombs.find(pixels(v.x, v.y)).back();
 				bomb.anim.play("show", 2);
 
@@ -273,8 +274,13 @@ class MyApp : public App
 			}
 			else
 			{
-				hp -= bomblvl * 10;
+				shadow.anim.pause();
+				auto bomb = bombs.find(pixels(v.x, v.y)).back();
+				bomb.anim.play("show", 2);
 
+				connect(timerdefeat, defeat, v, bomblvl);
+				timervictory.repeat(1);
+				return;
 			}
 		}
 
@@ -349,38 +355,42 @@ class MyApp : public App
     void process(Input input)
     {
         using namespace gamebase::InputKey;
-		if (game.selected() == 1 && timervictory.isPaused() && timerfromstatstogame.isPaused())
+		if (game.selected() == 1 && timervictory.isPaused() && hp > 0)
 		{
 			if (gmap[pp.x + 1][pp.y] == Grass || gmap[pp.x + 1][pp.y] == OpenGrass || (gmap[pp.x + 1][pp.y] >= Bomb && gmap[pp.x + 1][pp.y] <= Bomb5))
 				if (input.pressed(Right) && shadow.anim.isEmpty(0))
 				{
+					shadow.anim.play("rotateright", 5);
 					shadow.anim.run("right");
 					pp.x++;
-					volni(pp, 1);
+					volni(pp, "right");
 				}
 
 			if (gmap[pp.x - 1][pp.y] == Grass || gmap[pp.x - 1][pp.y] == OpenGrass || (gmap[pp.x - 1][pp.y] >= Bomb && gmap[pp.x - 1][pp.y] <= Bomb5))
 				if (input.pressed(Left) && shadow.anim.isEmpty(0))
 				{
+					shadow.anim.play("rotateleft", 5);
 					shadow.anim.run("left");
 					pp.x--;
-					volni(pp, 2);
+					volni(pp, "left");
 				}
 
 			if (gmap[pp.x][pp.y + 1] == Grass || gmap[pp.x][pp.y + 1] == OpenGrass || (gmap[pp.x][pp.y + 1] >= Bomb && gmap[pp.x][pp.y + 1] <= Bomb5))
 				if (input.pressed(Up) && shadow.anim.isEmpty(0))
 				{
+					shadow.anim.play("rotateup", 5);
 					shadow.anim.run("up");
 					pp.y++;
-					volni(pp, 3);
+					volni(pp, "up");
 				}
 
 			if (gmap[pp.x][pp.y - 1] == Grass || gmap[pp.x][pp.y - 1] == OpenGrass || (gmap[pp.x][pp.y - 1] >= Bomb && gmap[pp.x][pp.y - 1] <= Bomb5))
 				if (input.pressed(Down) && shadow.anim.isEmpty(0))
 				{
+					shadow.anim.play("rotatedown", 5);
 					shadow.anim.run("down");
 					pp.y--;
-					volni(pp, 4);
+					volni(pp, "down");
 				}
 		}
 
@@ -407,15 +417,13 @@ class MyApp : public App
 			field.setView(shadow.pos());
 		}
 
+		nextexp = lvlmas[lvl - 1] - exp;
 
 
-
-		if (exp == 100 && lvl == 1)
+		if (exp >= lvlmas[0] && lvl == 1)
 			lvl++;
-
-		if (exp == 500 && lvl == 2)
+		if (exp >= lvlmas[1] && lvl == 2)
 			lvl++;
-
 
 
 		if (flagstartgame >= 0)
@@ -425,7 +433,6 @@ class MyApp : public App
 		if (flagstartgame == 1)
 		{
 			blackscreen.anim.play("transit2", 3);
-
 		}
 
 
@@ -438,7 +445,7 @@ class MyApp : public App
 	FromDesign(Selector, game);
 	FromDesign(Button, NewGame);
 	FromDesign(Button, LoadGame);
-	FromDesign(Button, Rules);
+	FromDesign(Button, Help);
 	FromDesign(Button, Exit);
 
 	FromDesign(Label, profl);
@@ -456,6 +463,7 @@ class MyApp : public App
 	Timer timerstartgame;
 	Timer timerfromstatstogame;
 	Timer timervictory;
+	Timer timerdefeat;
 	int flagstartgame = 0;
 	int bombnum = 0;
 
@@ -467,8 +475,8 @@ class MyApp : public App
 
 
 
-	int lvlmas[5] = {
-		200, 1000, 2000, 3500, 5000
+	int lvlmas[4] = {
+		200, 1200, 3000, 5000
 	};
 
 };

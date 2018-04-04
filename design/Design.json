@@ -39,7 +39,7 @@
                "value" : 0
             }
          },
-         "currentID" : 0,
+         "currentID" : 1,
          "objects" : [
             {
                "_key" : 0,
@@ -173,7 +173,7 @@
                               }
                            },
                            {
-                              "_name" : "Rules",
+                              "_name" : "Help",
                               "_typeName" : "Button",
                               "position" : {
                                  "_typeName" : "AligningOffset",
@@ -432,6 +432,88 @@
                                           }
                                        },
                                        {
+                                          "_key" : "afterdefeat",
+                                          "_value" : {
+                                             "_typeName" : "CompositeAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "ScaleChange",
+                                                   "changeFunc" : 0,
+                                                   "objName" : "",
+                                                   "period" : 0,
+                                                   "relativeScaling" : false,
+                                                   "scale" : 1,
+                                                   "scalingType" : 1
+                                                },
+                                                {
+                                                   "_typeName" : "FramesChange",
+                                                   "atlasName" : "",
+                                                   "frames" : [
+                                                      {
+                                                         "_typeName" : "Frame",
+                                                         "frameIndex" : 9,
+                                                         "lineIndex" : 4,
+                                                         "time" : 500
+                                                      },
+                                                      {
+                                                         "_typeName" : "Frame",
+                                                         "frameIndex" : 1,
+                                                         "lineIndex" : 4,
+                                                         "time" : 0
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
+                                          "_key" : "fromdown",
+                                          "_value" : {
+                                             "_typeName" : "ParallelAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "AdvancedMove",
+                                                   "changeFunc" : 0,
+                                                   "coordType" : 1,
+                                                   "objName" : "",
+                                                   "parentHeightRelativeCoord" : 0,
+                                                   "parentWidthRelativeCoord" : 0,
+                                                   "period" : 300,
+                                                   "pixelCoord" : 50,
+                                                   "relativeMove" : true,
+                                                   "selfHeightRelativeCoord" : 0,
+                                                   "selfWidthRelativeCoord" : 0
+                                                },
+                                                {
+                                                   "_typeName" : "CompositeAnimation",
+                                                   "animations" : [
+                                                      {
+                                                         "_typeName" : "ScaleChange",
+                                                         "changeFunc" : 0,
+                                                         "objName" : "",
+                                                         "period" : 0,
+                                                         "relativeScaling" : false,
+                                                         "scale" : 1,
+                                                         "scalingType" : 1
+                                                      },
+                                                      {
+                                                         "_typeName" : "FramesChange",
+                                                         "atlasName" : "",
+                                                         "frames" : [
+                                                            {
+                                                               "_typeName" : "Frame",
+                                                               "frameIndex" : 7,
+                                                               "lineIndex" : 2,
+                                                               "time" : 0
+                                                            }
+                                                         ]
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
                                           "_key" : "right",
                                           "_value" : {
                                              "_typeName" : "ParallelAnimation",
@@ -487,6 +569,53 @@
                                                                "_typeName" : "Frame",
                                                                "frameIndex" : 7,
                                                                "lineIndex" : 4,
+                                                               "time" : 0
+                                                            }
+                                                         ]
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
+                                          "_key" : "fromright",
+                                          "_value" : {
+                                             "_typeName" : "ParallelAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "AdvancedMove",
+                                                   "changeFunc" : 0,
+                                                   "coordType" : 0,
+                                                   "objName" : "",
+                                                   "parentHeightRelativeCoord" : 0,
+                                                   "parentWidthRelativeCoord" : 0,
+                                                   "period" : 300,
+                                                   "pixelCoord" : -50,
+                                                   "relativeMove" : true,
+                                                   "selfHeightRelativeCoord" : 0,
+                                                   "selfWidthRelativeCoord" : 0
+                                                },
+                                                {
+                                                   "_typeName" : "CompositeAnimation",
+                                                   "animations" : [
+                                                      {
+                                                         "_typeName" : "ScaleChange",
+                                                         "changeFunc" : 0,
+                                                         "objName" : "",
+                                                         "period" : 0,
+                                                         "relativeScaling" : false,
+                                                         "scale" : -1,
+                                                         "scalingType" : 1
+                                                      },
+                                                      {
+                                                         "_typeName" : "FramesChange",
+                                                         "atlasName" : "",
+                                                         "frames" : [
+                                                            {
+                                                               "_typeName" : "Frame",
+                                                               "frameIndex" : 1,
+                                                               "lineIndex" : 3,
                                                                "time" : 0
                                                             }
                                                          ]
@@ -562,71 +691,6 @@
                                           }
                                        },
                                        {
-                                          "_key" : "up",
-                                          "_value" : {
-                                             "_typeName" : "ParallelAnimation",
-                                             "animations" : [
-                                                {
-                                                   "_typeName" : "AdvancedMove",
-                                                   "changeFunc" : 0,
-                                                   "coordType" : 1,
-                                                   "objName" : "",
-                                                   "parentHeightRelativeCoord" : 0,
-                                                   "parentWidthRelativeCoord" : 0,
-                                                   "period" : 300,
-                                                   "pixelCoord" : 50,
-                                                   "relativeMove" : true,
-                                                   "selfHeightRelativeCoord" : 0,
-                                                   "selfWidthRelativeCoord" : 0
-                                                },
-                                                {
-                                                   "_typeName" : "CompositeAnimation",
-                                                   "animations" : [
-                                                      {
-                                                         "_typeName" : "ScaleChange",
-                                                         "changeFunc" : 0,
-                                                         "objName" : "",
-                                                         "period" : 0,
-                                                         "relativeScaling" : false,
-                                                         "scale" : 1,
-                                                         "scalingType" : 1
-                                                      },
-                                                      {
-                                                         "_typeName" : "FramesChange",
-                                                         "atlasName" : "atlas",
-                                                         "frames" : [
-                                                            {
-                                                               "_typeName" : "Frame",
-                                                               "frameIndex" : 3,
-                                                               "lineIndex" : 4,
-                                                               "time" : 100
-                                                            },
-                                                            {
-                                                               "_typeName" : "Frame",
-                                                               "frameIndex" : 4,
-                                                               "lineIndex" : 4,
-                                                               "time" : 100
-                                                            },
-                                                            {
-                                                               "_typeName" : "Frame",
-                                                               "frameIndex" : 5,
-                                                               "lineIndex" : 4,
-                                                               "time" : 100
-                                                            },
-                                                            {
-                                                               "_typeName" : "Frame",
-                                                               "frameIndex" : 4,
-                                                               "lineIndex" : 4,
-                                                               "time" : 0
-                                                            }
-                                                         ]
-                                                      }
-                                                   ]
-                                                }
-                                             ]
-                                          }
-                                       },
-                                       {
                                           "_key" : "left",
                                           "_value" : {
                                              "_typeName" : "ParallelAnimation",
@@ -681,6 +745,281 @@
                                                             {
                                                                "_typeName" : "Frame",
                                                                "frameIndex" : 7,
+                                                               "lineIndex" : 4,
+                                                               "time" : 0
+                                                            }
+                                                         ]
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
+                                          "_key" : "fromup",
+                                          "_value" : {
+                                             "_typeName" : "ParallelAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "AdvancedMove",
+                                                   "changeFunc" : 0,
+                                                   "coordType" : 1,
+                                                   "objName" : "",
+                                                   "parentHeightRelativeCoord" : 0,
+                                                   "parentWidthRelativeCoord" : 0,
+                                                   "period" : 300,
+                                                   "pixelCoord" : -50,
+                                                   "relativeMove" : true,
+                                                   "selfHeightRelativeCoord" : 0,
+                                                   "selfWidthRelativeCoord" : 0
+                                                },
+                                                {
+                                                   "_typeName" : "CompositeAnimation",
+                                                   "animations" : [
+                                                      {
+                                                         "_typeName" : "ScaleChange",
+                                                         "changeFunc" : 0,
+                                                         "objName" : "",
+                                                         "period" : 0,
+                                                         "relativeScaling" : false,
+                                                         "scale" : 1,
+                                                         "scalingType" : 1
+                                                      },
+                                                      {
+                                                         "_typeName" : "FramesChange",
+                                                         "atlasName" : "",
+                                                         "frames" : [
+                                                            {
+                                                               "_typeName" : "Frame",
+                                                               "frameIndex" : 5,
+                                                               "lineIndex" : 2,
+                                                               "time" : 0
+                                                            }
+                                                         ]
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
+                                          "_key" : "fromleft",
+                                          "_value" : {
+                                             "_typeName" : "ParallelAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "AdvancedMove",
+                                                   "changeFunc" : 0,
+                                                   "coordType" : 0,
+                                                   "objName" : "",
+                                                   "parentHeightRelativeCoord" : 0,
+                                                   "parentWidthRelativeCoord" : 0,
+                                                   "period" : 300,
+                                                   "pixelCoord" : 50,
+                                                   "relativeMove" : true,
+                                                   "selfHeightRelativeCoord" : 0,
+                                                   "selfWidthRelativeCoord" : 0
+                                                },
+                                                {
+                                                   "_typeName" : "CompositeAnimation",
+                                                   "animations" : [
+                                                      {
+                                                         "_typeName" : "ScaleChange",
+                                                         "changeFunc" : 0,
+                                                         "objName" : "",
+                                                         "period" : 0,
+                                                         "relativeScaling" : false,
+                                                         "scale" : 1,
+                                                         "scalingType" : 1
+                                                      },
+                                                      {
+                                                         "_typeName" : "FramesChange",
+                                                         "atlasName" : "",
+                                                         "frames" : [
+                                                            {
+                                                               "_typeName" : "Frame",
+                                                               "frameIndex" : 1,
+                                                               "lineIndex" : 3,
+                                                               "time" : 0
+                                                            }
+                                                         ]
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
+                                          "_key" : "rotatedown",
+                                          "_value" : {
+                                             "_typeName" : "CompositeAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "ScaleChange",
+                                                   "changeFunc" : 0,
+                                                   "objName" : "",
+                                                   "period" : 0,
+                                                   "relativeScaling" : false,
+                                                   "scale" : 1,
+                                                   "scalingType" : 1
+                                                },
+                                                {
+                                                   "_typeName" : "FramesChange",
+                                                   "atlasName" : "",
+                                                   "frames" : [
+                                                      {
+                                                         "_typeName" : "Frame",
+                                                         "frameIndex" : 1,
+                                                         "lineIndex" : 4,
+                                                         "time" : 0
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
+                                          "_key" : "rotateleft",
+                                          "_value" : {
+                                             "_typeName" : "CompositeAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "ScaleChange",
+                                                   "changeFunc" : 0,
+                                                   "objName" : "",
+                                                   "period" : 0,
+                                                   "relativeScaling" : false,
+                                                   "scale" : 1,
+                                                   "scalingType" : 1
+                                                },
+                                                {
+                                                   "_typeName" : "FramesChange",
+                                                   "atlasName" : "",
+                                                   "frames" : [
+                                                      {
+                                                         "_typeName" : "Frame",
+                                                         "frameIndex" : 7,
+                                                         "lineIndex" : 4,
+                                                         "time" : 0
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
+                                          "_key" : "rotateright",
+                                          "_value" : {
+                                             "_typeName" : "CompositeAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "ScaleChange",
+                                                   "changeFunc" : 0,
+                                                   "objName" : "",
+                                                   "period" : 0,
+                                                   "relativeScaling" : false,
+                                                   "scale" : -1,
+                                                   "scalingType" : 1
+                                                },
+                                                {
+                                                   "_typeName" : "FramesChange",
+                                                   "atlasName" : "",
+                                                   "frames" : [
+                                                      {
+                                                         "_typeName" : "Frame",
+                                                         "frameIndex" : 7,
+                                                         "lineIndex" : 4,
+                                                         "time" : 0
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
+                                          "_key" : "rotateup",
+                                          "_value" : {
+                                             "_typeName" : "CompositeAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "ScaleChange",
+                                                   "changeFunc" : 0,
+                                                   "objName" : "",
+                                                   "period" : 0,
+                                                   "relativeScaling" : false,
+                                                   "scale" : 1,
+                                                   "scalingType" : 1
+                                                },
+                                                {
+                                                   "_typeName" : "FramesChange",
+                                                   "atlasName" : "",
+                                                   "frames" : [
+                                                      {
+                                                         "_typeName" : "Frame",
+                                                         "frameIndex" : 4,
+                                                         "lineIndex" : 4,
+                                                         "time" : 0
+                                                      }
+                                                   ]
+                                                }
+                                             ]
+                                          }
+                                       },
+                                       {
+                                          "_key" : "up",
+                                          "_value" : {
+                                             "_typeName" : "ParallelAnimation",
+                                             "animations" : [
+                                                {
+                                                   "_typeName" : "AdvancedMove",
+                                                   "changeFunc" : 0,
+                                                   "coordType" : 1,
+                                                   "objName" : "",
+                                                   "parentHeightRelativeCoord" : 0,
+                                                   "parentWidthRelativeCoord" : 0,
+                                                   "period" : 300,
+                                                   "pixelCoord" : 50,
+                                                   "relativeMove" : true,
+                                                   "selfHeightRelativeCoord" : 0,
+                                                   "selfWidthRelativeCoord" : 0
+                                                },
+                                                {
+                                                   "_typeName" : "CompositeAnimation",
+                                                   "animations" : [
+                                                      {
+                                                         "_typeName" : "ScaleChange",
+                                                         "changeFunc" : 0,
+                                                         "objName" : "",
+                                                         "period" : 0,
+                                                         "relativeScaling" : false,
+                                                         "scale" : 1,
+                                                         "scalingType" : 1
+                                                      },
+                                                      {
+                                                         "_typeName" : "FramesChange",
+                                                         "atlasName" : "atlas",
+                                                         "frames" : [
+                                                            {
+                                                               "_typeName" : "Frame",
+                                                               "frameIndex" : 3,
+                                                               "lineIndex" : 4,
+                                                               "time" : 100
+                                                            },
+                                                            {
+                                                               "_typeName" : "Frame",
+                                                               "frameIndex" : 4,
+                                                               "lineIndex" : 4,
+                                                               "time" : 100
+                                                            },
+                                                            {
+                                                               "_typeName" : "Frame",
+                                                               "frameIndex" : 5,
+                                                               "lineIndex" : 4,
+                                                               "time" : 100
+                                                            },
+                                                            {
+                                                               "_typeName" : "Frame",
+                                                               "frameIndex" : 4,
                                                                "lineIndex" : 4,
                                                                "time" : 0
                                                             }

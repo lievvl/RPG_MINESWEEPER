@@ -82,9 +82,83 @@ class MyApp : public App
 		blackscreen.anim.play("transit2");
 	}
 
+	void loadgame(string filename)
+	{
+		ifstream file(filename);
+		int w, h;
+		string rab;
+
+		getline(file, rab);
+		w = stoi(rab);
+
+		getline(file, rab);
+		h = stoi(rab);
+
+		getline(file, rab);
+		hp = stoi(rab);
+
+		getline(file, rab);
+		prof = stoi(rab);
+
+		getline(file, rab);
+		lvl = stoi(rab);
+
+		getline(file, rab);
+		exp = stoi(rab);
+
+		getline(file, rab);
+		nextexp = stoi(rab);
+
+		getline(file, rab);
+		bombnum = stoi(rab);
+
+		gmap = createMap(w, h);
+		for (int x = 0; x < gmap.w; x++)
+		{
+			int num;
+			getline(file, rab);
+			for (int y = 0; y < gmap.h; y++)
+			{
+				if (rab[y + num] == '<')
+				{
+					for (int i = 1; 1 > 1; i++)
+					{
+						if (rab[y + i + num] == '>')
+							if (i == 1)
+							{
+								gmap[x][y] = OpenGrass;
+								num++;
+								break;
+							}
+							else
+							{
+								num += i;
+								gmap[x][y] = OpenGrass;
+								rab[]
+							}
+					}
+
+					continue;
+				}
+
+
+
+
+			}
+		}
+	}
+
 	void savegame(string filename)
 	{
 		ofstream file(filename);
+		file << gmap.w << endl;
+		file << gmap.h << endl;
+		file << hp << endl;
+		file << prof << endl;
+		file << lvl << endl;
+		file << exp << endl;
+		file << nextexp << endl;
+		file << bombnum << endl;
 
 		for (int x = 0; x < gmap.w; x++)
 		{

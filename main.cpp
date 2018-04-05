@@ -1,40 +1,43 @@
 #include <gamebase/Gamebase.h>
+#include <fstream>
 
 using namespace gamebase;
 using namespace std;
 
 enum Type
-{
-    None,
-    Grass,
-	Grass1,
-	Grass2,
-	Grass3,
-	Grass4,
-	Grass5,
-	OpenGrass,
-    Water,
-	Bomb,
-	Bomb2,
-	Bomb3,
-	Bomb4,
-	Bomb5,
-	Wall,
-    Hero
+{ //. - ГМЮЙ ЙНМЖЮ
+    None,  //мер нангмювемхъ
+    Grass, //g
+	Grass1,//мер нангмювемхъ
+	Grass2,//мер нангмювемхъ
+	Grass3,//мер нангмювемхъ
+	Grass4,//мер нангмювемхъ
+	Grass5,//мер нангмювемхъ
+	Mountain, //m
+	OpenGrass, //жхтпю, мювюкн х йнмеж "," хкх e дкъ осярни мюдохях
+    Water, //w
+	Bomb,  //z
+	Bomb2, //x
+	Bomb3, //c
+	Bomb4, //v
+	Bomb5, //b
+	Wall,  //w
+    Hero   //h
 };
 
 class MyApp : public App
 {
-    void load()
-    {
+	void load()
+	{
 		connect(NewGame, startgame1);
 		connect(Exit, return, 0);
+		connect(SaveGame, savegame, "save.txt");
 
 
 		connect(timerstartgame, startgame2);
 		connect(timertostats, tostats2);
 		connect(timerfromstatstogame, fromstatstogame2);
-    }
+	}
 
 	void startgame1()
 	{
@@ -79,12 +82,98 @@ class MyApp : public App
 		blackscreen.anim.play("transit2");
 	}
 
+	void savegame(string filename)
+	{
+		ofstream file(filename);
+
+		for (int x = 0; x < gmap.w; x++)
+		{
+			for (int y = 0; y < gmap.h; y++)
+			{
+				if (pp.x == x && pp.y == y)
+				{
+					file << "h";
+					continue;
+				}
+
+				if (gmap[x][y] == Grass)
+				{
+					file << "g";
+					continue;
+				}
+
+				if (gmap[x][y] == Mountain)
+				{
+					file << "m";
+					continue;
+				}
+
+				if (gmap[x][y] == Water)
+				{
+					file << "w";
+					continue;
+				}
+
+				if (gmap[x][y] == OpenGrass)
+				{
+					auto obj = grasses.find(pixels(x, y)).back();
+					auto l = obj.child<Label>("label");
+					if (!l.isVisible())
+					{
+						file << "e";
+						continue;
+					}
+					else
+					{
+						file << "<" << l.text() << ">";
+						continue;
+					}
+				}
+
+				if (gmap[x][y] == Bomb)
+				{
+					file << "z";
+					continue;
+				}
+
+				if (gmap[x][y] == Bomb2)
+				{
+					file << "x";
+					continue;
+				}
+
+				if (gmap[x][y] == Bomb3)
+				{
+					file << "c";
+					continue;
+				}
+
+				if (gmap[x][y] == Bomb4)
+				{
+					file << "v";
+					continue;
+				}
+
+				if (gmap[x][y] == Bomb5)
+				{
+					file << "b";
+					continue;
+				}
+			}
+			file << endl;
+		}
+		file.close();
+		cout << "Done" << endl;
+	}
+
 	void restart()
 	{
 		timerfromstatstogame.stop();
 		timertostats.stop();
 		timerstartgame.stop();
 		timervictory.stop();
+		timerdefeat.stop();
+		timerafterdefeat.stop();
 
 
 
@@ -97,7 +186,9 @@ class MyApp : public App
 		colorToType[Color(0, 80, 0)] = Grass4;
 		colorToType[Color(0, 40, 0)] = Grass5;
 		colorToType[Color(0, 0, 255)] = Water;
+		colorToType[Color(185, 122, 87)] = Mountain;
 		colorToType[Color(128, 128, 128)] = Hero;
+		colorToType[Color(20, 20, 20)] = Bomb2;
 		colorToType[Color(0, 0, 0)] = Wall;
 
 		gmap = loadMap("map.png", colorToType);
@@ -111,7 +202,10 @@ class MyApp : public App
 					gmap[x][y] = Grass;
 				}
 
-
+				if (gmap.get(x, y) == Bomb2)
+				{
+					bombs.load("ghost.json", pixels(x, y));
+				}
 
 
 
@@ -171,19 +265,22 @@ class MyApp : public App
 					grasses.load("grass.json", pixels(x, y));
 
 				}
+
+				if (gmap.get(x, y) == Mountain)
+					mountains.load("mountain.json", pixels(x, y));
 			}
 		}
 
 		flagstartgame = 5;
 	}
 
-    Vec2 pixels(int x, int y)
-    {
-        Vec2 v;
-        v.x = x * 50 - gmap.w * 50 / 2 + 50 / 2;
-        v.y = y * 50 - gmap.h * 50 / 2 + 50 / 2;
-        return v;
-    }
+	Vec2 pixels(int x, int y)
+	{
+		Vec2 v;
+		v.x = x * 50 - gmap.w * 50 / 2 + 50 / 2;
+		v.y = y * 50 - gmap.h * 50 / 2 + 50 / 2;
+		return v;
+	}
 
 	// deque
 
@@ -252,7 +349,43 @@ class MyApp : public App
 
 	}
 
-	void defeat(IntVec2 v, int bomblvl)
+	void afterdefeat(string direct)
+	{
+		timerafterdefeat.stop();
+		shadow.anim.play("from" + direct, 5);
+		shadow.anim.play("afterdefeat", 5);
+	}
+
+	void defeat(IntVec2 v, int bomblvl, string direct)
+	{
+		timerdefeat.stop();
+		shadow.anim.resume();
+		hp -= dmgbomb[bomblvl - 1];
+
+		if (direct == "left")
+			pp.x++;
+
+		if (direct == "right")
+			pp.x--;
+
+		if (direct == "up")
+			pp.y--;
+
+		if (direct == "down")
+			pp.y++;
+
+		if (hp <= 0)
+		{
+			ded();
+		}
+		else
+		{
+			connect(timerafterdefeat, afterdefeat, direct);
+			timerafterdefeat.repeat(0.5);
+		}
+	}
+
+	void ded()
 	{
 
 	}
@@ -274,12 +407,12 @@ class MyApp : public App
 			}
 			else
 			{
-				shadow.anim.pause();
+				shadow.anim.pause(0);
 				auto bomb = bombs.find(pixels(v.x, v.y)).back();
 				bomb.anim.play("show", 2);
 
-				connect(timerdefeat, defeat, v, bomblvl);
-				timervictory.repeat(1);
+				connect(timerdefeat, defeat, v, bomblvl, direct);
+				timerdefeat.repeat(1);
 				return;
 			}
 		}
@@ -355,7 +488,7 @@ class MyApp : public App
     void process(Input input)
     {
         using namespace gamebase::InputKey;
-		if (game.selected() == 1 && timervictory.isPaused() && hp > 0)
+		if (game.selected() == 1 && timervictory.isPaused() && timerdefeat.isPaused() && hp > 0)
 		{
 			if (gmap[pp.x + 1][pp.y] == Grass || gmap[pp.x + 1][pp.y] == OpenGrass || (gmap[pp.x + 1][pp.y] >= Bomb && gmap[pp.x + 1][pp.y] <= Bomb5))
 				if (input.pressed(Right) && shadow.anim.isEmpty(0))
@@ -416,13 +549,19 @@ class MyApp : public App
 		{
 			field.setView(shadow.pos());
 		}
-
-		nextexp = lvlmas[lvl - 1] - exp;
+		if (lvl < 5)
+			nextexp = lvlmas[lvl - 1] - exp;
+		else
+			nextexp = 0;
 
 
 		if (exp >= lvlmas[0] && lvl == 1)
 			lvl++;
 		if (exp >= lvlmas[1] && lvl == 2)
+			lvl++;
+		if (exp >= lvlmas[2] && lvl == 3)
+			lvl++;
+		if (exp >= lvlmas[3] && lvl == 4)
 			lvl++;
 
 
@@ -443,10 +582,14 @@ class MyApp : public App
     FromDesign(GameView, field);
 	FromDesign(GameObj, blackscreen);
 	FromDesign(Selector, game);
+
+
 	FromDesign(Button, NewGame);
 	FromDesign(Button, LoadGame);
 	FromDesign(Button, Help);
 	FromDesign(Button, Exit);
+	FromDesign(Button, SaveGame);
+	FromDesign(Button, ToMenuFromStats);
 
 	FromDesign(Label, profl);
 	FromDesign(Label, hpl);
@@ -456,6 +599,7 @@ class MyApp : public App
 
     LayerFromDesign(void, grasses);
     LayerFromDesign(void, waters);
+	LayerFromDesign(void, mountains);
 	LayerFromDesign(void, bombs);
 
     IntVec2 pp;
@@ -464,6 +608,8 @@ class MyApp : public App
 	Timer timerfromstatstogame;
 	Timer timervictory;
 	Timer timerdefeat;
+	Timer timerafterdefeat;
+
 	int flagstartgame = 0;
 	int bombnum = 0;
 
@@ -473,7 +619,9 @@ class MyApp : public App
 	int nextexp = 0;
 	int hp = 100;
 
-
+	int dmgbomb[5] = {
+		10, 20, 35, 60, 100
+	};
 
 	int lvlmas[4] = {
 		200, 1200, 3000, 5000

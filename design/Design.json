@@ -39,7 +39,7 @@
                "value" : 0
             }
          },
-         "currentID" : 1,
+         "currentID" : 0,
          "objects" : [
             {
                "_key" : 0,
@@ -370,6 +370,18 @@
                            },
                            {
                               "_name" : "waters",
+                              "_typeName" : "Layer",
+                              "index" : {
+                                 "_typeName" : "FlatIndex",
+                                 "keyType" : 2
+                              },
+                              "list" : [],
+                              "order" : {
+                                 "_typeName" : "SortByIDOrder"
+                              }
+                           },
+                           {
+                              "_name" : "mountains",
                               "_typeName" : "Layer",
                               "index" : {
                                  "_typeName" : "FlatIndex",
@@ -1998,6 +2010,7 @@
                                           "skipInvisibleElements" : false
                                        },
                                        {
+                                          "_name" : "SaveGame",
                                           "_typeName" : "Button",
                                           "position" : {
                                              "_typeName" : "AligningOffset",
@@ -2037,6 +2050,7 @@
                                           }
                                        },
                                        {
+                                          "_name" : "ToMenuFromStats",
                                           "_typeName" : "Button",
                                           "position" : {
                                              "_typeName" : "AligningOffset",

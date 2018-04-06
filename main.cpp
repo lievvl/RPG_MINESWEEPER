@@ -16,11 +16,11 @@ enum Type
 	Mountain, //m
 	OpenGrass, //÷»‘–¿, Õ¿◊¿ÀŒ »  ŒÕ≈÷ "," »À» e ƒÀﬂ œ”—“Œ… Õ¿ƒœ»—»
     Water, //w
-	Bomb,  //z
-	Bomb2, //x
-	Bomb3, //c
-	Bomb4, //v
-	Bomb5, //b
+	Bomb,  //z, y ÓÚÍ˚Ú˚È
+	Bomb2, //x, u
+	Bomb3, //c, i
+	Bomb4, //v, o
+	Bomb5, //b, p
 	Wall,  //w
     Hero   //h
 };
@@ -32,11 +32,13 @@ class MyApp : public App
 		connect(NewGame, startgame1);
 		connect(Exit, return, 0);
 		connect(SaveGame, savegame, "save.txt");
+		connect(LoadGame, loadgame1);
 
 
 		connect(timerstartgame, startgame2);
 		connect(timertostats, tostats2);
 		connect(timerfromstatstogame, fromstatstogame2);
+		connect(timerloadgame, loadgame2, "save.txt");
 	}
 
 	void startgame1()
@@ -82,8 +84,23 @@ class MyApp : public App
 		blackscreen.anim.play("transit2");
 	}
 
-	void loadgame(string filename)
+	void loadgame1()
 	{
+		blackscreen.anim.play("transit1");
+		timerloadgame.repeat(0.3);
+	}
+
+	void loadgame2(string filename)
+	{
+
+		timerfromstatstogame.stop();
+		timertostats.stop();
+		timerstartgame.stop();
+		timervictory.stop();
+		timerdefeat.stop();
+		timerafterdefeat.stop();
+		timerloadgame.stop();
+
 		ifstream file(filename);
 		int w, h;
 		string rab;
@@ -113,37 +130,155 @@ class MyApp : public App
 		bombnum = stoi(rab);
 
 		gmap = createMap(w, h);
-		for (int x = 0; x < gmap.w; x++)
+		for (int y = gmap.h - 1; y >= 0; y--)
 		{
-			int num;
 			getline(file, rab);
-			for (int y = 0; y < gmap.h; y++)
+			for (int x = 0; x < gmap.w; x++)
 			{
-				if (rab[y + num] == '<')
+				
+				if (rab[x] == 'h')
 				{
-					for (int i = 1; 1 > 1; i++)
-					{
-						if (rab[y + i + num] == '>')
-							if (i == 1)
-							{
-								gmap[x][y] = OpenGrass;
-								num++;
-								break;
-							}
-							else
-							{
-								num += i;
-								gmap[x][y] = OpenGrass;
-								rab[]
-							}
-					}
+					gmap[x][y] = OpenGrass;
+					shadow.setPos(pixels(x, y));
+					pp.x = x;
+					pp.y = y;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					obj.anim.play("hid");
+					auto l = obj.child<Label>("label");
+					l.hide();
+					
+				}
 
+				if (rab[x] == 's')
+				{
+					gmap[x][y] = OpenGrass;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					obj.anim.play("hid");
+					auto l = obj.child<Label>("label");
+					l.show();
+				}
+
+				if (rab[x] == 'j')
+				{
+					gmap[x][y] = OpenGrass;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					obj.anim.play("hid");
+					auto l = obj.child<Label>("label");
+					l.hide();
+				}
+
+				if (rab[x] == 'g')
+				{
+					grasses.load("grass.json", pixels(x, y));
+					gmap[x][y] = Grass;
+				}
+
+				if (rab[x] == 'm')
+				{
+					mountains.load("mountain.json", pixels(x, y));
+					gmap[x][y] = Mountain;
+				}
+
+				if (rab[x] == 'w')
+				{
+					waters.load("water.json", pixels(x, y));
+					gmap[x][y] = Water;
+				}
+
+				if (rab[x] == 'z')
+				{
+					gmap[x][y] = Bomb;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto dog = bombs.load("dog.json", pixels(x, y));
+					dog.hide();
 					continue;
 				}
 
+				if (rab[x] == 'y')
+				{
+					gmap[x][y] = Bomb;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto dog = bombs.load("dog.json", pixels(x, y));
+					dog.show();
+					continue;
+				}
 
+				if (rab[x] == 'x')
+				{
+					gmap[x][y] = Bomb2;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto bomb = bombs.load("ghost.json", pixels(x, y));
+					bomb.hide();
+					continue;
+				}
 
+				if (rab[x] == 'u')
+				{
+					gmap[x][y] = Bomb2;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto bomb = bombs.load("ghost.json", pixels(x, y));
+					bomb.show();
+					continue;
+				}
 
+			}
+		}
+
+		
+
+		file.close();
+
+		game.select(1);
+		prov();
+		blackscreen.anim.play("transit2");
+	}
+
+	void prov()
+	{
+		for (int y = gmap.h - 1; y >= 0; y--)
+		{
+			for (int x = 0; x < gmap.w; x++)
+			{
+				if (gmap[x][y] == OpenGrass)
+				{
+					Color mas[8] = {
+						Color(0,0,255), Color(0,255,0), Color(255,0,0), Color(148,0,211),
+						Color(86,3,25), Color(17,96,98), Color(0,0,0), Color(128,128,128),
+					};
+					int num = 0;
+
+					for (int sx = -1; sx < 2; sx++)
+						for (int sy = -1; sy < 2; sy++)
+						{
+							if (gmap.get(x + sx, y + sy) == Bomb)
+								num++;
+
+							if (gmap.get(x + sx, y + sy) == Bomb2)
+								num += 2;
+
+							if (gmap.get(x + sx, y + sy) == Bomb3)
+								num += 3;
+
+							if (gmap.get(x + sx, y + sy) == Bomb4)
+								num += 4;
+
+							if (gmap.get(x + sx, y + sy) == Bomb5)
+								num += 5;
+						}
+
+					auto obj = grasses.find(pixels(x, y)).back();
+					auto l = obj.child<Label>("label");
+
+					if (num != 0)
+					{
+						l.show();
+						if (num == 40)
+							num--;
+						l.setColor(mas[num / 5]);
+						l << num;
+					}
+
+				}
 			}
 		}
 	}
@@ -160,9 +295,9 @@ class MyApp : public App
 		file << nextexp << endl;
 		file << bombnum << endl;
 
-		for (int x = 0; x < gmap.w; x++)
+		for (int y = gmap.h - 1; y>=0; y--)
 		{
-			for (int y = 0; y < gmap.h; y++)
+			for (int x = 0; x < gmap.w ; x++)
 			{
 				if (pp.x == x && pp.y == y)
 				{
@@ -194,43 +329,63 @@ class MyApp : public App
 					auto l = obj.child<Label>("label");
 					if (!l.isVisible())
 					{
-						file << "e";
+						file << "j";
 						continue;
 					}
 					else
 					{
-						file << "<" << l.text() << ">";
+						file << "s";
 						continue;
 					}
 				}
 
 				if (gmap[x][y] == Bomb)
 				{
-					file << "z";
+					auto obj = bombs.find(pixels(x, y)).back();
+					if (obj.isVisible())
+						file << "y";
+					else
+						file << "z";
 					continue;
 				}
 
 				if (gmap[x][y] == Bomb2)
 				{
-					file << "x";
+					auto obj = bombs.find(pixels(x, y)).back();
+					if (obj.isVisible())
+						file << "u";
+					else
+						file << "x";
 					continue;
 				}
 
 				if (gmap[x][y] == Bomb3)
 				{
-					file << "c";
+					auto obj = bombs.find(pixels(x, y)).back();
+					if (obj.isVisible())
+						file << "i";
+					else
+						file << "c";
 					continue;
 				}
 
 				if (gmap[x][y] == Bomb4)
 				{
-					file << "v";
+					auto obj = bombs.find(pixels(x, y)).back();
+					if (obj.isVisible())
+						file << "o";
+					else
+						file << "v";
 					continue;
 				}
 
 				if (gmap[x][y] == Bomb5)
 				{
-					file << "b";
+					auto obj = bombs.find(pixels(x, y)).back();
+					if (obj.isVisible())
+						file << "p";
+					else
+						file << "b";
 					continue;
 				}
 			}
@@ -248,6 +403,7 @@ class MyApp : public App
 		timervictory.stop();
 		timerdefeat.stop();
 		timerafterdefeat.stop();
+		timerloadgame.stop();
 
 
 
@@ -276,13 +432,6 @@ class MyApp : public App
 					gmap[x][y] = Grass;
 				}
 
-				if (gmap.get(x, y) == Bomb2)
-				{
-					bombs.load("ghost.json", pixels(x, y));
-				}
-
-
-
 				if (gmap.get(x, y) == Grass1) //11111111111111111111111111111111111111111111111
 				{
 					grasses.load("grass.json", pixels(x, y));
@@ -290,7 +439,7 @@ class MyApp : public App
 					{
 						gmap[x][y] = Bomb;
 						auto dog = bombs.load("dog.json", pixels(x, y));
-						dog.anim.play("hid");
+						dog.hide();
 						continue;
 					}
 					gmap[x][y] = Grass;
@@ -307,7 +456,7 @@ class MyApp : public App
 					{
 						gmap[x][y] = Bomb;
 						auto dog = bombs.load("dog.json", pixels(x, y));
-						dog.anim.play("hid");
+						dog.hide();
 						continue;
 					}
 
@@ -315,7 +464,7 @@ class MyApp : public App
 					{
 						gmap[x][y] = Bomb2;
 						auto ghost = bombs.load("ghost.json", pixels(x, y));
-						ghost.anim.play("hid");
+						ghost.hide();
 						continue;
 					}
 					gmap[x][y] = Grass;
@@ -473,7 +622,7 @@ class MyApp : public App
 			{
 				shadow.anim.pause(0);
 				auto bomb = bombs.find(pixels(v.x, v.y)).back();
-				bomb.anim.play("show", 2);
+				bomb.show();
 
 				connect(timervictory, victory, v, bomblvl);
 				timervictory.repeat(1);
@@ -483,7 +632,7 @@ class MyApp : public App
 			{
 				shadow.anim.pause(0);
 				auto bomb = bombs.find(pixels(v.x, v.y)).back();
-				bomb.anim.play("show", 2);
+				bomb.show();
 
 				connect(timerdefeat, defeat, v, bomblvl, direct);
 				timerdefeat.repeat(1);
@@ -546,8 +695,10 @@ class MyApp : public App
 			auto obj = grasses.find(pixels(v.x, v.y)).back();
 			obj.anim.play("hid");
 			auto l = obj.child<Label>("label");
+			l.hide();
 			if (num != 0)
 			{
+				l.show();
 				if (num == 40)
 					num--;
 				l.setColor(mas[num / 5]);
@@ -572,7 +723,7 @@ class MyApp : public App
 					pp.x++;
 					volni(pp, "right");
 				}
-
+			if (pp.x != 0)
 			if (gmap[pp.x - 1][pp.y] == Grass || gmap[pp.x - 1][pp.y] == OpenGrass || (gmap[pp.x - 1][pp.y] >= Bomb && gmap[pp.x - 1][pp.y] <= Bomb5))
 				if (input.pressed(Left) && shadow.anim.isEmpty(0))
 				{
@@ -591,6 +742,7 @@ class MyApp : public App
 					volni(pp, "up");
 				}
 
+			if (pp.y != 0)
 			if (gmap[pp.x][pp.y - 1] == Grass || gmap[pp.x][pp.y - 1] == OpenGrass || (gmap[pp.x][pp.y - 1] >= Bomb && gmap[pp.x][pp.y - 1] <= Bomb5))
 				if (input.pressed(Down) && shadow.anim.isEmpty(0))
 				{
@@ -683,6 +835,7 @@ class MyApp : public App
 	Timer timervictory;
 	Timer timerdefeat;
 	Timer timerafterdefeat;
+	Timer timerloadgame;
 
 	int flagstartgame = 0;
 	int bombnum = 0;

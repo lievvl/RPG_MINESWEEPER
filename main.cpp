@@ -30,15 +30,53 @@ class MyApp : public App
 	void load()
 	{
 		connect(NewGame, startgame1);
-		connect(Exit, return, 0);
+		connect(Exit, exit, 0);
 		connect(SaveGame, savegame, "save.txt");
 		connect(LoadGame, loadgame1);
+		connect(ToMenuFromStats, tomenufromstats1);
+		connect(Help, game.select, 3);
+		connect(fromrulestomenub, game.select, 0);
+		connect(fromwintomenu, game.select, 0);
 
 
+		connect(timersavegamedone, savegamedone);
 		connect(timerstartgame, startgame2);
 		connect(timertostats, tostats2);
 		connect(timerfromstatstogame, fromstatstogame2);
 		connect(timerloadgame, loadgame2, "save.txt");
+		connect(timertomenufromstats, tomenufromstats2);
+		connect(timerded2, ded2);
+		connect(timerded3, ded3);
+		connect(timerded4, ded4);
+		connect(timerwin, win);
+	}
+
+	void nullall()
+	{
+		pp.x = 0;
+		pp.y = 0;
+		timertostats.stop();
+		timerstartgame.stop();
+		timerfromstatstogame.stop();
+		timervictory.stop();
+		timerdefeat.stop();
+		timerafterdefeat.stop();
+		timerloadgame.stop();
+		timersavegamedone.stop();
+
+		flagstartgame = 0;
+		bombnum = 0;
+
+		prof = 0;
+		lvl = 1;
+		exp = 0;
+		nextexp = 0;
+		hp = 100;
+
+		grasses.clear();
+		mountains.clear();
+		bombs.clear();
+		waters.clear();
 	}
 
 	void startgame1()
@@ -67,6 +105,7 @@ class MyApp : public App
 		lvll << lvl;
 		expl << exp;
 		nextexpl << nextexp;
+		SaveGameDone.hide();
 		game.select(2);
 		blackscreen.anim.play("transit2");
 	}
@@ -81,6 +120,20 @@ class MyApp : public App
 	{
 		timerfromstatstogame.stop();
 		game.select(1);
+		blackscreen.anim.play("transit2");
+	}
+
+	void tomenufromstats1()
+	{
+		blackscreen.anim.play("transit1");
+		nullall();
+		timertomenufromstats.repeat(0.4);
+	}
+
+	void tomenufromstats2()
+	{
+		timertomenufromstats.stop();
+		game.select(0);
 		blackscreen.anim.play("transit2");
 	}
 
@@ -100,6 +153,8 @@ class MyApp : public App
 		timerdefeat.stop();
 		timerafterdefeat.stop();
 		timerloadgame.stop();
+		timersavegamedone.stop();
+		timertomenufromstats.stop();
 
 		ifstream file(filename);
 		int w, h;
@@ -135,7 +190,7 @@ class MyApp : public App
 			getline(file, rab);
 			for (int x = 0; x < gmap.w; x++)
 			{
-				
+
 				if (rab[x] == 'h')
 				{
 					gmap[x][y] = OpenGrass;
@@ -146,7 +201,7 @@ class MyApp : public App
 					obj.anim.play("hid");
 					auto l = obj.child<Label>("label");
 					l.hide();
-					
+
 				}
 
 				if (rab[x] == 's')
@@ -185,6 +240,10 @@ class MyApp : public App
 					gmap[x][y] = Water;
 				}
 
+
+
+
+
 				if (rab[x] == 'z')
 				{
 					gmap[x][y] = Bomb;
@@ -202,6 +261,10 @@ class MyApp : public App
 					dog.show();
 					continue;
 				}
+
+
+
+
 
 				if (rab[x] == 'x')
 				{
@@ -221,10 +284,76 @@ class MyApp : public App
 					continue;
 				}
 
+
+
+
+
+				if (rab[x] == 'c')
+				{
+					gmap[x][y] = Bomb3;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto bomb = bombs.load("umaro.json", pixels(x, y));
+					bomb.hide();
+					continue;
+				}
+
+				if (rab[x] == 'i')
+				{
+					gmap[x][y] = Bomb3;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto bomb = bombs.load("umaro.json", pixels(x, y));
+					bomb.show();
+					continue;
+				}
+
+
+
+
+
+				if (rab[x] == 'v')
+				{
+					gmap[x][y] = Bomb4;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto bomb = bombs.load("typhoon.json", pixels(x, y));
+					bomb.hide();
+					continue;
+				}
+
+				if (rab[x] == 'o')
+				{
+					gmap[x][y] = Bomb4;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto bomb = bombs.load("typhoon.json", pixels(x, y));
+					bomb.show();
+					continue;
+				}
+
+
+
+
+
+				if (rab[x] == 'b')
+				{
+					gmap[x][y] = Bomb5;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto bomb = bombs.load("hidon.json", pixels(x, y));
+					bomb.hide();
+					continue;
+				}
+
+				if (rab[x] == 'p')
+				{
+					gmap[x][y] = Bomb5;
+					auto obj = grasses.load("grass.json", pixels(x, y));
+					auto bomb = bombs.load("hidon.json", pixels(x, y));
+					bomb.show();
+					continue;
+				}
+
 			}
 		}
 
-		
+
 
 		file.close();
 
@@ -295,9 +424,9 @@ class MyApp : public App
 		file << nextexp << endl;
 		file << bombnum << endl;
 
-		for (int y = gmap.h - 1; y>=0; y--)
+		for (int y = gmap.h - 1; y >= 0; y--)
 		{
-			for (int x = 0; x < gmap.w ; x++)
+			for (int x = 0; x < gmap.w; x++)
 			{
 				if (pp.x == x && pp.y == y)
 				{
@@ -392,11 +521,21 @@ class MyApp : public App
 			file << endl;
 		}
 		file.close();
+		SaveGameDone.show();
+		timersavegamedone.repeat(1);
 		cout << "Done" << endl;
+	}
+
+	void savegamedone()
+	{
+		SaveGameDone.hide();
+		timersavegamedone.stop();
 	}
 
 	void restart()
 	{
+		nullall();
+
 		timerfromstatstogame.stop();
 		timertostats.stop();
 		timerstartgame.stop();
@@ -404,7 +543,7 @@ class MyApp : public App
 		timerdefeat.stop();
 		timerafterdefeat.stop();
 		timerloadgame.stop();
-
+		timertomenufromstats.stop();
 
 
 		randomize();
@@ -440,6 +579,7 @@ class MyApp : public App
 						gmap[x][y] = Bomb;
 						auto dog = bombs.load("dog.json", pixels(x, y));
 						dog.hide();
+						bombnum++;
 						continue;
 					}
 					gmap[x][y] = Grass;
@@ -457,6 +597,7 @@ class MyApp : public App
 						gmap[x][y] = Bomb;
 						auto dog = bombs.load("dog.json", pixels(x, y));
 						dog.hide();
+						bombnum++;
 						continue;
 					}
 
@@ -465,11 +606,54 @@ class MyApp : public App
 						gmap[x][y] = Bomb2;
 						auto ghost = bombs.load("ghost.json", pixels(x, y));
 						ghost.hide();
+						bombnum++;
 						continue;
 					}
 					gmap[x][y] = Grass;
 				}
 
+
+				if (gmap.get(x, y) == Grass3)
+				{
+					grasses.load("grass.json", pixels(x, y));
+
+					if (randomInt(1, 100) <= 5)
+					{
+						gmap[x][y] = Bomb5;
+						auto obj = bombs.load("hidon.json", pixels(x, y));
+						obj.hide();
+						bombnum++;
+						continue;
+					}
+
+					if (randomInt(1, 100) <= 5)
+					{
+						gmap[x][y] = Bomb4;
+						auto obj = bombs.load("typhoon.json", pixels(x, y));
+						obj.hide();
+						bombnum++;
+						continue;
+					}
+
+					if (randomInt(1, 100) <= 10)
+					{
+						gmap[x][y] = Bomb2;
+						auto obj = bombs.load("ghost.json", pixels(x, y));
+						obj.hide();
+						bombnum++;
+						continue;
+					}
+
+					if (randomInt(1, 100) <= 10)
+					{
+						gmap[x][y] = Bomb3;
+						auto obj = bombs.load("umaro.json", pixels(x, y));
+						obj.hide();
+						bombnum++;
+						continue;
+					}
+					gmap[x][y] = Grass;
+				}
 
 
 
@@ -566,10 +750,19 @@ class MyApp : public App
 			l.setColor(mas[num / 5]);
 			l << num;
 		};
+		bombnum--;
 
 		gmap[v] = OpenGrass;
 
+		if (bombnum <= 0)
+			timerwin.repeat(1);
 
+	}
+	void win()
+	{
+		timerwin.stop();
+		nullall();
+		game.select(4);
 	}
 
 	void afterdefeat(string direct)
@@ -599,7 +792,8 @@ class MyApp : public App
 
 		if (hp <= 0)
 		{
-			ded();
+			connect(timerded1, ded1, direct);
+			timerded1.repeat(0.5);
 		}
 		else
 		{
@@ -608,9 +802,34 @@ class MyApp : public App
 		}
 	}
 
-	void ded()
+	void ded1(string direct)
 	{
+		timerded1.stop();
+		shadow.anim.play("from" + direct, 5);
+		timerded2.repeat(0.5);
+	}
 
+	void ded2()
+	{
+		timerded2.stop();
+		shadow.anim.play("ded");
+		timerded3.repeat(2);
+	}
+
+	void ded3()
+	{
+		timerded3.stop();
+		blackscreen.anim.play("transit1");
+		shadow.anim.play("afterdefeat");
+		nullall();
+		timerded4.repeat(0.5);
+	}
+
+	void ded4()
+	{
+		timerded4.stop();
+		game.select(0);
+		blackscreen.anim.play("transit2");
 	}
 
 	void volni(IntVec2 v, string direct)
@@ -816,12 +1035,15 @@ class MyApp : public App
 	FromDesign(Button, Exit);
 	FromDesign(Button, SaveGame);
 	FromDesign(Button, ToMenuFromStats);
+	FromDesign(Button, fromrulestomenub);
+	FromDesign(Button, fromwintomenu);
 
 	FromDesign(Label, profl);
 	FromDesign(Label, hpl);
 	FromDesign(Label, lvll);
 	FromDesign(Label, expl);
 	FromDesign(Label, nextexpl);
+	FromDesign(Label, SaveGameDone);
 
     LayerFromDesign(void, grasses);
     LayerFromDesign(void, waters);
@@ -836,6 +1058,13 @@ class MyApp : public App
 	Timer timerdefeat;
 	Timer timerafterdefeat;
 	Timer timerloadgame;
+	Timer timersavegamedone;
+	Timer timertomenufromstats;
+	Timer timerded1;
+	Timer timerded2;
+	Timer timerded3;
+	Timer timerded4;
+	Timer timerwin;
 
 	int flagstartgame = 0;
 	int bombnum = 0;

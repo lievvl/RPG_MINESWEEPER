@@ -2053,6 +2053,48 @@
                                                 }
                                              },
                                              {
+                                                "_name" : "SaveGameBox",
+                                                "_typeName" : "TextBox",
+                                                "filter" : {
+                                                   "_empty" : true
+                                                },
+                                                "position" : {
+                                                   "_typeName" : "AligningOffset",
+                                                   "horAlign" : 0,
+                                                   "horOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 5
+                                                   },
+                                                   "vertAlign" : 1,
+                                                   "vertOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 0
+                                                   }
+                                                },
+                                                "skin" : {
+                                                   "_typeName" : "SimpleRectangleTextBoxSkin",
+                                                   "borderColor" : [ 0.196078434586525, 0.1568627506494522, 0.7058823704719543, 1 ],
+                                                   "borderWidth" : 1,
+                                                   "box" : {
+                                                      "_typeName" : "PixelBox",
+                                                      "height" : 48,
+                                                      "width" : 300
+                                                   },
+                                                   "fillColor" : [ 1, 1, 1, 1 ],
+                                                   "font" : {
+                                                      "_typeName" : "FontDesc",
+                                                      "family" : "Roboto",
+                                                      "size" : 28
+                                                   },
+                                                   "selectionColor" : [ 0.7450980544090271, 0.8235294222831726, 1, 1 ],
+                                                   "textColor" : [ 0, 0, 0, 1 ],
+                                                   "textOutlineColor" : [ 1, 1, 1, 1 ]
+                                                },
+                                                "text" : ""
+                                             },
+                                             {
                                                 "_name" : "SaveGameDone",
                                                 "_typeName" : "StaticLabel",
                                                 "adjustSize" : true,
@@ -2329,43 +2371,6 @@
                                     "skipInvisibleElements" : false
                                  }
                               ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "RIGHT",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "RelativeBox",
-                                 "height" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 0,
-                                    "value" : 0
-                                 },
-                                 "offset" : {
-                                    "_empty" : true
-                                 },
-                                 "width" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 0,
-                                    "value" : 0
-                                 }
-                              },
-                              "list" : [],
                               "position" : {
                                  "_typeName" : "AligningOffset",
                                  "horAlign" : 0,
@@ -4555,6 +4560,460 @@
                               "_typeName" : "RelativeValue",
                               "type" : 1,
                               "value" : -20
+                           }
+                        },
+                        "skipInvisibleElements" : false
+                     }
+                  ],
+                  "position" : {
+                     "_typeName" : "AligningOffset",
+                     "horAlign" : 1,
+                     "horOffset" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 1,
+                        "value" : 0
+                     },
+                     "vertAlign" : 1,
+                     "vertOffset" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 1,
+                        "value" : 0
+                     }
+                  }
+               }
+            },
+            {
+               "_key" : 5,
+               "_value" : {
+                  "_name" : "loadgame",
+                  "_typeName" : "CanvasLayout",
+                  "adjustment" : 0,
+                  "box" : {
+                     "_typeName" : "RelativeBox",
+                     "height" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 0,
+                        "value" : 0
+                     },
+                     "offset" : {
+                        "_empty" : true
+                     },
+                     "width" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 0,
+                        "value" : 0
+                     }
+                  },
+                  "list" : [
+                     {
+                        "_typeName" : "LinearLayout",
+                        "list" : [
+                           {
+                              "_typeName" : "LinearLayout",
+                              "list" : [
+                                 {
+                                    "_typeName" : "StaticLabel",
+                                    "adjustSize" : true,
+                                    "box" : {
+                                       "_typeName" : "RelativeBox",
+                                       "height" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 0,
+                                          "value" : 0
+                                       },
+                                       "offset" : {
+                                          "_empty" : true
+                                       },
+                                       "width" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 0,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "color" : [ 0, 0, 0, 1 ],
+                                    "outlineColor" : [ 1, 1, 1, 1 ],
+                                    "position" : {
+                                       "_typeName" : "AligningOffset",
+                                       "horAlign" : 0,
+                                       "horOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       },
+                                       "vertAlign" : 1,
+                                       "vertOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "properties" : {
+                                       "_typeName" : "AlignProperties",
+                                       "enableStacking" : false,
+                                       "font" : {
+                                          "_typeName" : "FontDesc",
+                                          "family" : "Roboto",
+                                          "size" : 28
+                                       },
+                                       "horAlign" : 0,
+                                       "vertAlign" : 0
+                                    },
+                                    "text" : "Введите название файла: "
+                                 },
+                                 {
+                                    "_name" : "LoadGameBox",
+                                    "_typeName" : "TextBox",
+                                    "filter" : {
+                                       "_empty" : true
+                                    },
+                                    "position" : {
+                                       "_typeName" : "AligningOffset",
+                                       "horAlign" : 0,
+                                       "horOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       },
+                                       "vertAlign" : 1,
+                                       "vertOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "skin" : {
+                                       "_typeName" : "SimpleRectangleTextBoxSkin",
+                                       "borderColor" : [ 0.196078434586525, 0.1568627506494522, 0.7058823704719543, 1 ],
+                                       "borderWidth" : 1,
+                                       "box" : {
+                                          "_typeName" : "PixelBox",
+                                          "height" : 48,
+                                          "width" : 300
+                                       },
+                                       "fillColor" : [ 1, 1, 1, 1 ],
+                                       "font" : {
+                                          "_typeName" : "FontDesc",
+                                          "family" : "Roboto",
+                                          "size" : 28
+                                       },
+                                       "selectionColor" : [ 0.7450980544090271, 0.8235294222831726, 1, 1 ],
+                                       "textColor" : [ 0, 0, 0, 1 ],
+                                       "textOutlineColor" : [ 1, 1, 1, 1 ]
+                                    },
+                                    "text" : ""
+                                 }
+                              ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 0,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              },
+                              "skin" : {
+                                 "_typeName" : "HorizontalLayoutSkin",
+                                 "adjustment" : 1,
+                                 "align" : 1,
+                                 "box" : {
+                                    "_typeName" : "RelativeBox",
+                                    "height" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 0,
+                                       "value" : 0
+                                    },
+                                    "offset" : {
+                                       "_empty" : true
+                                    },
+                                    "width" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 0,
+                                       "value" : 0
+                                    }
+                                 },
+                                 "padding" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              },
+                              "skipInvisibleElements" : false
+                           },
+                           {
+                              "_typeName" : "LinearLayout",
+                              "list" : [
+                                 {
+                                    "_name" : "FailLoadGame",
+                                    "_typeName" : "StaticLabel",
+                                    "_visible" : false,
+                                    "adjustSize" : true,
+                                    "box" : {
+                                       "_typeName" : "RelativeBox",
+                                       "height" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 0,
+                                          "value" : 0
+                                       },
+                                       "offset" : {
+                                          "_empty" : true
+                                       },
+                                       "width" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 0,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "color" : [ 0, 0, 0, 1 ],
+                                    "outlineColor" : [ 1, 1, 1, 1 ],
+                                    "position" : {
+                                       "_typeName" : "AligningOffset",
+                                       "horAlign" : 0,
+                                       "horOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       },
+                                       "vertAlign" : 1,
+                                       "vertOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "properties" : {
+                                       "_typeName" : "AlignProperties",
+                                       "enableStacking" : false,
+                                       "font" : {
+                                          "_typeName" : "FontDesc",
+                                          "family" : "Roboto",
+                                          "size" : 28
+                                       },
+                                       "horAlign" : 0,
+                                       "vertAlign" : 0
+                                    },
+                                    "text" : "Файл не найден "
+                                 },
+                                 {
+                                    "_name" : "LoadGameB",
+                                    "_typeName" : "Button",
+                                    "position" : {
+                                       "_typeName" : "AligningOffset",
+                                       "horAlign" : 0,
+                                       "horOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       },
+                                       "vertAlign" : 1,
+                                       "vertOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "skin" : {
+                                       "_typeName" : "SimpleRectangleButtonSkin",
+                                       "borderColor" : [ 0, 0, 0, 1 ],
+                                       "borderWidth" : 1,
+                                       "box" : {
+                                          "_typeName" : "PixelBox",
+                                          "height" : 48,
+                                          "width" : 300
+                                       },
+                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                       "font" : {
+                                          "_typeName" : "FontDesc",
+                                          "family" : "Roboto",
+                                          "outlineWidth" : 1,
+                                          "size" : 28
+                                       },
+                                       "text" : "Загрузить игру",
+                                       "textColor" : [ 0, 0, 0, 1 ],
+                                       "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                       "useGradient" : true
+                                    }
+                                 },
+                                 {
+                                    "_typeName" : "StaticLabel",
+                                    "_visible" : false,
+                                    "adjustSize" : true,
+                                    "box" : {
+                                       "_typeName" : "RelativeBox",
+                                       "height" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 0,
+                                          "value" : 0
+                                       },
+                                       "offset" : {
+                                          "_empty" : true
+                                       },
+                                       "width" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 0,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "color" : [ 0, 0, 0, 1 ],
+                                    "outlineColor" : [ 1, 1, 1, 1 ],
+                                    "position" : {
+                                       "_typeName" : "AligningOffset",
+                                       "horAlign" : 0,
+                                       "horOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       },
+                                       "vertAlign" : 1,
+                                       "vertOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "properties" : {
+                                       "_typeName" : "AlignProperties",
+                                       "enableStacking" : false,
+                                       "font" : {
+                                          "_typeName" : "FontDesc",
+                                          "family" : "Roboto",
+                                          "size" : 28
+                                       },
+                                       "horAlign" : 0,
+                                       "vertAlign" : 0
+                                    },
+                                    "text" : "Файл не найден "
+                                 }
+                              ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 0,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : -15
+                                 }
+                              },
+                              "skin" : {
+                                 "_typeName" : "HorizontalLayoutSkin",
+                                 "adjustment" : 1,
+                                 "align" : 1,
+                                 "box" : {
+                                    "_typeName" : "RelativeBox",
+                                    "height" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 0,
+                                       "value" : 0
+                                    },
+                                    "offset" : {
+                                       "_empty" : true
+                                    },
+                                    "width" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 0,
+                                       "value" : 0
+                                    }
+                                 },
+                                 "padding" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              },
+                              "skipInvisibleElements" : false
+                           },
+                           {
+                              "_name" : "ToMenuFromLoadGame",
+                              "_typeName" : "Button",
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 0,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : -15
+                                 }
+                              },
+                              "skin" : {
+                                 "_typeName" : "SimpleRectangleButtonSkin",
+                                 "borderColor" : [ 0, 0, 0, 1 ],
+                                 "borderWidth" : 1,
+                                 "box" : {
+                                    "_typeName" : "PixelBox",
+                                    "height" : 48,
+                                    "width" : 300
+                                 },
+                                 "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                 "font" : {
+                                    "_typeName" : "FontDesc",
+                                    "family" : "Roboto",
+                                    "outlineWidth" : 1,
+                                    "size" : 28
+                                 },
+                                 "text" : "Назад в меню",
+                                 "textColor" : [ 0, 0, 0, 1 ],
+                                 "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                 "useGradient" : true
+                              }
+                           }
+                        ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        },
+                        "skin" : {
+                           "_typeName" : "VerticalLayoutSkin",
+                           "adjustment" : 1,
+                           "align" : 1,
+                           "box" : {
+                              "_typeName" : "RelativeBox",
+                              "height" : {
+                                 "_typeName" : "RelativeValue",
+                                 "type" : 0,
+                                 "value" : 0
+                              },
+                              "offset" : {
+                                 "_empty" : true
+                              },
+                              "width" : {
+                                 "_typeName" : "RelativeValue",
+                                 "type" : 0,
+                                 "value" : 0
+                              }
+                           },
+                           "padding" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : -15
                            }
                         },
                         "skipInvisibleElements" : false

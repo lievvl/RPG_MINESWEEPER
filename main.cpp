@@ -31,10 +31,12 @@ class MyApp : public App
 	{
 		connect(NewGame, startgame1);
 		connect(Exit, exit, 0);
-		connect(SaveGame, savegame, "save.txt");
-		connect(LoadGame, loadgame1);
+		connect(SaveGame, savegame);
+		connect(LoadGame, game.select, 5);
+		connect(ToMenuFromLoadGame, game.select, 0);
 		connect(ToMenuFromStats, tomenufromstats1);
 		connect(Help, game.select, 3);
+		connect(LoadGameB, loadgame1);
 		connect(fromrulestomenub, game.select, 0);
 		connect(fromwintomenu, game.select, 0);
 
@@ -43,7 +45,7 @@ class MyApp : public App
 		connect(timerstartgame, startgame2);
 		connect(timertostats, tostats2);
 		connect(timerfromstatstogame, fromstatstogame2);
-		connect(timerloadgame, loadgame2, "save.txt");
+		connect(timerloadgame, loadgame, "save.txt");
 		connect(timertomenufromstats, tomenufromstats2);
 		connect(timerded2, ded2);
 		connect(timerded3, ded3);
@@ -63,6 +65,7 @@ class MyApp : public App
 		timerafterdefeat.stop();
 		timerloadgame.stop();
 		timersavegamedone.stop();
+		FailLoadGame.hide();
 
 		flagstartgame = 0;
 		bombnum = 0;
@@ -139,11 +142,39 @@ class MyApp : public App
 
 	void loadgame1()
 	{
-		blackscreen.anim.play("transit1");
-		timerloadgame.repeat(0.3);
+		string filename;
+		LoadGameBox >> filename;
+		filename = filename + ".txt";
+		ifstream file(filename);
+
+		if (file)
+		{
+			file.close();
+			blackscreen.anim.play("transit1");
+			connect(timertoloadgame1, toloadgame1, filename);
+			timertoloadgame1.repeat(0.3);
+		}
+		else
+		{
+			file.close();
+			FailLoadGame.show();
+			callOnce(3, hidefail);
+		}
 	}
 
-	void loadgame2(string filename)
+	void hidefail()
+	{
+		FailLoadGame.hide();
+	}
+
+
+	void toloadgame1(string filename)
+	{
+		timertoloadgame1.stop();
+		loadgame(filename);
+	}
+
+	void loadgame(string filename)
 	{
 
 		timerfromstatstogame.stop();
@@ -349,7 +380,6 @@ class MyApp : public App
 					bomb.show();
 					continue;
 				}
-
 			}
 		}
 
@@ -412,8 +442,11 @@ class MyApp : public App
 		}
 	}
 
-	void savegame(string filename)
+	void savegame()
 	{
+		string filename;
+		SaveGameBox >> filename;
+		filename = filename + ".txt";
 		ofstream file(filename);
 		file << gmap.w << endl;
 		file << gmap.h << endl;
@@ -1037,6 +1070,8 @@ class MyApp : public App
 	FromDesign(Button, ToMenuFromStats);
 	FromDesign(Button, fromrulestomenub);
 	FromDesign(Button, fromwintomenu);
+	FromDesign(Button, LoadGameB);
+	FromDesign(Button, ToMenuFromLoadGame);
 
 	FromDesign(Label, profl);
 	FromDesign(Label, hpl);
@@ -1044,6 +1079,10 @@ class MyApp : public App
 	FromDesign(Label, expl);
 	FromDesign(Label, nextexpl);
 	FromDesign(Label, SaveGameDone);
+	FromDesign(Label, FailLoadGame);
+
+	FromDesign(TextBox, SaveGameBox);
+	FromDesign(TextBox, LoadGameBox);
 
     LayerFromDesign(void, grasses);
     LayerFromDesign(void, waters);
@@ -1065,6 +1104,8 @@ class MyApp : public App
 	Timer timerded3;
 	Timer timerded4;
 	Timer timerwin;
+
+	Timer timertoloadgame1;
 
 	int flagstartgame = 0;
 	int bombnum = 0;
